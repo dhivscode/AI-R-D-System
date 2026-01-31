@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Adaptive Hybrid Compression for Efficient Vision-Language Models"
+abstract: "A novel architecture combining Selective State Space Models with Dynamic Token Pruning for efficient Vision-Language inference, achieving 52% FLOPs reduction and 2.1× speedup with minimal accuracy loss."
+authors:
+  - name: "AI R&D System"
+    affiliation: "Independent Research"
+repository-code: "https://github.com/username/adaptive-hybrid-compression"
+url: "https://github.com/username/adaptive-hybrid-compression"
+keywords:
+  - efficient-ai
+  - vision-language-models
+  - state-space-models
+  - token-pruning
+  - hybrid-attention
+  - edge-ai
+  - model-compression
+license: MIT
+version: 0.1.0
+date-released: 2026-02-01
+preferred-citation:
+  type: article
+  title: "Adaptive Hybrid Compression for Efficient Vision-Language Models: Combining Selective State Spaces with Dynamic Token Pruning"
+  authors:
+    - name: "AI R&D System"
+  year: 2026
+  journal: "arXiv preprint"
+  notes: "arXiv:2026.XXXXX"

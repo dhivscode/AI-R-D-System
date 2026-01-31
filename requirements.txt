@@ -1,0 +1,35 @@
+# Core dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.24.0
+pillow>=9.5.0
+
+# Efficient attention
+flash-attn>=2.0.0
+triton>=2.0.0
+
+# Model utilities
+transformers>=4.30.0
+accelerate>=0.20.0
+safetensors>=0.3.0
+
+# Data processing
+datasets>=2.12.0
+pycocotools>=2.0.6
+opencv-python>=4.7.0
+
+# Training utilities
+wandb>=0.15.0
+tensorboard>=2.13.0
+tqdm>=4.65.0
+
+# Evaluation
+scikit-learn>=1.2.0
+scipy>=1.10.0
+
+# Quantization
+bitsandbytes>=0.39.0
+
+# Optional: Hardware-specific
+# intel-extension-for-pytorch>=2.0.0  # For Intel CPUs
+# tensorrt>=8.6.0  # For NVIDIA deployment
