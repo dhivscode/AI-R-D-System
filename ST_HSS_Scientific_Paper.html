@@ -1,0 +1,1991 @@
+<!DOCTYPE html><html><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>LSG: البوابات Рекурренتية الحالة اللوغاريتمية للنمذجة متعددة الوسائط ذات التسلسل الطويل</title>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>html {
+    box-sizing: border-box;
+    }
+*, *::before, *::after {
+    box-sizing: inherit;
+    }
+.cover-container {
+    height: 1131.4px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+    margin: 0 auto;
+    max-width: 880px;
+    padding: 0;
+    }
+.cover-container /* Geometric Background Layers */ .geometric-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    }
+.cover-container .shape-primary {
+    position: absolute;
+    background: linear-gradient(135deg, #00d4ff 0%, #09c 100%);
+    opacity: 0.15;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+    width: 60%;
+    height: 70%;
+    top: 0;
+    right: 0;
+    }
+.cover-container .shape-secondary {
+    position: absolute;
+    background: linear-gradient(45deg, #ff6b35 0%, #f7931e 100%);
+    opacity: 0.12;
+    clip-path: polygon(0 30%, 100% 0, 100% 100%, 0 85%);
+    width: 50%;
+    height: 60%;
+    bottom: 0;
+    left: 0;
+    }
+.cover-container .shape-accent {
+    position: absolute;
+    background: linear-gradient(225deg, #1dd1a1 0%, #10ac84 100%);
+    opacity: 0.1;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    bottom: -150px;
+    right: -100px;
+    filter: blur(40px);
+    }
+.cover-container .shape-tertiary {
+    position: absolute;
+    background: linear-gradient(90deg, #5f27cd 0%, #341f97 100%);
+    opacity: 0.08;
+    clip-path: polygon(30% 0, 100% 0, 70% 100%, 0 100%);
+    width: 45%;
+    height: 50%;
+    top: 50%;
+    right: 0;
+    }
+.cover-container /* Grid Pattern Overlay */ .grid-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.02) 25%, rgba(255, 255, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.02) 75%, rgba(255, 255, 255, 0.02) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.02) 25%, rgba(255, 255, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.02) 75%, rgba(255, 255, 255, 0.02) 76%, transparent 77%, transparent);
+    background-size: 80px 80px;
+    opacity: 0.3;
+    z-index: 2;
+    }
+.cover-container /* Content Container */ .content-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px 80px;
+    }
+.cover-container /* Header Section */ .header-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
+    }
+.cover-container .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    padding: 10px 20px;
+    background: rgba(0, 212, 255, 0.15);
+    border: 1px solid rgba(0, 212, 255, 0.4);
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #00d4ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    }
+.cover-container .badge::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #00d4ff;
+    border-radius: 50%;
+    display: inline-block;
+    }
+.cover-container /* Title Section */ .title-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 60px 0;
+    }
+.cover-container .main-title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #fff;
+    letter-spacing: -0.5px;
+    max-width: 90%;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+.cover-container .title-accent-line {
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, #00d4ff 0%, #1dd1a1 100%);
+    margin: 20px 0;
+    border-radius: 2px;
+    }
+.cover-container .subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+    max-width: 85%;
+    letter-spacing: 0.3px;
+    }
+.cover-container /* Middle Content */ .middle-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    margin: 40px 0;
+    }
+.cover-container .description-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    }
+.cover-container .description-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #00d4ff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    }
+.cover-container .description-text {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    max-width: 95%;
+    }
+.cover-container .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    }
+.cover-container .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.65);
+    }
+.cover-container .feature-icon {
+    width: 6px;
+    height: 6px;
+    background: #1dd1a1;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+    }
+.cover-container /* Footer Section */ .footer-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    }
+.cover-container .footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    }
+.cover-container .organization-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    }
+.cover-container .report-date {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.5px;
+    }
+.cover-container .footer-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    }
+.cover-container .page-indicator {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+    }
+.cover-container .footer-accent {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, #00d4ff 0%, transparent 100%);
+    }
+.cover-container /* Decorative Elements */ .corner-decoration {
+    position: absolute;
+    z-index: 3;
+    }
+.cover-container .corner-top-left {
+    top: 30px;
+    left: 30px;
+    width: 60px;
+    height: 60px;
+    border-top: 2px solid rgba(0, 212, 255, 0.3);
+    border-left: 2px solid rgba(0, 212, 255, 0.3);
+    border-radius: 8px;
+    }
+.cover-container .corner-bottom-right {
+    bottom: 30px;
+    right: 30px;
+    width: 80px;
+    height: 80px;
+    border-bottom: 2px solid rgba(29, 209, 161, 0.3);
+    border-right: 2px solid rgba(29, 209, 161, 0.3);
+    border-radius: 8px;
+    }
+.toc-container {
+    min-height: 1131.4px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+    margin: 0 auto;
+    max-width: 880px;
+    padding: 60px 80px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+    box-sizing: border-box;
+    }
+.toc-container .toc-container::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.02) 25%, rgba(255, 255, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.02) 75%, rgba(255, 255, 255, 0.02) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.02) 25%, rgba(255, 255, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.02) 75%, rgba(255, 255, 255, 0.02) 76%, transparent 77%, transparent);
+    background-size: 80px 80px;
+    opacity: 0.3;
+    z-index: 1;
+    pointer-events: none;
+    }
+.toc-container .toc-container::after {
+    content: "";
+    position: absolute;
+    width: 60%;
+    height: 70%;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, #00d4ff 0%, #09c 100%);
+    opacity: 0.15;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+    z-index: 0;
+    pointer-events: none;
+    }
+.toc-container > .toc-container h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 40px 0;
+    letter-spacing: -0.5px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    padding-bottom: 20px;
+    border-bottom: 3px solid;
+    border-image: linear-gradient(90deg, #00d4ff 0%, #1dd1a1 100%) 1;
+    }
+.toc-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    }
+.toc-container li {
+    margin: 0;
+    padding: 0;
+    }
+.toc-container li.level-1 {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+.toc-container li.level-1 > a, .toc-container li.level-1 > span {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    padding: 8px 0;
+    }
+.toc-container li.level-1 > a:hover {
+    color: #00d4ff;
+    padding-right: 8px;
+    }
+.toc-container li.level-1 > ul {
+    margin-top: 12px;
+    padding-right: 20px;
+    gap: 0;
+    }
+.toc-container li.level-2 {
+    padding: 10px 0;
+    }
+.toc-container li.level-2 > a, .toc-container li.level-2 > span {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    transition: all 0.3s ease;
+    padding: 6px 0;
+    position: relative;
+    padding-right: 12px;
+    }
+.toc-container li.level-2 > a::before {
+    content: "▸";
+    position: absolute;
+    right: 0;
+    color: #1dd1a1;
+    font-size: 12px;
+    }
+.toc-container li.level-2 > a:hover {
+    color: #1dd1a1;
+    padding-right: 16px;
+    }
+.toc-container li.level-3 {
+    padding: 8px 0;
+    }
+.toc-container li.level-3 > a, .toc-container li.level-3 > span {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    letter-spacing: 0.1px;
+    transition: all 0.3s ease;
+    padding: 4px 0;
+    position: relative;
+    padding-right: 12px;
+    }
+.toc-container li.level-3 > a::before {
+    content: "◦";
+    position: absolute;
+    right: 0;
+    color: #00d4ff;
+    font-size: 10px;
+    }
+.toc-container li.level-3 > a:hover {
+    color: #00d4ff;
+    padding-right: 16px;
+    }
+.toc-container li.level-2 > ul {
+    margin-top: 8px;
+    padding-right: 16px;
+    gap: 0;
+    }
+.toc-container .corner-decoration {
+    position: absolute;
+    z-index: 5;
+    }
+.toc-container .corner-top-left {
+    top: 30px;
+    left: 30px;
+    width: 60px;
+    height: 60px;
+    border-top: 2px solid rgba(0, 212, 255, 0.3);
+    border-left: 2px solid rgba(0, 212, 255, 0.3);
+    border-radius: 8px;
+    }
+.toc-container .corner-bottom-right {
+    bottom: 30px;
+    right: 30px;
+    width: 80px;
+    height: 80px;
+    border-bottom: 2px solid rgba(29, 209, 161, 0.3);
+    border-right: 2px solid rgba(29, 209, 161, 0.3);
+    border-radius: 8px;
+    }
+.container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 24px 40px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    }
+.chart-container {
+    position: relative;
+    margin: 3em auto;
+    max-width: 700px;
+    min-height: 200px;
+    max-height: 400px;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    }
+body {
+    font-family: "Times New Roman", Times, serif;
+    line-height: 1.6;
+    color: #222;
+    background-color: #fdfdfd;
+    margin: 0;
+    padding: 0;
+    font-size: 11pt;
+    }
+header {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    }
+header h1 {
+    font-size: 18pt;
+    font-weight: bold;
+    margin: 0;
+    }
+.authors {
+    font-size: 12pt;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    }
+.affiliation {
+    font-size: 10pt;
+    font-style: italic;
+    }
+section {
+    margin-bottom: 25px;
+    }
+h2 {
+    font-size: 14pt;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    }
+h3 {
+    font-size: 12pt;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    }
+p, ul, ol {
+    margin-bottom: 12px;
+    }
+ul {
+    padding-right: 20px;
+    }
+code, .code {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 10pt;
+    }
+.abstract {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    margin: 20px 0;
+    }
+.abstract h3 {
+    font-size: 12pt;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    }
+.equation {
+    display: block;
+    text-align: center;
+    margin: 15px 0;
+    font-size: 12pt;
+    }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 10pt;
+    }
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    }
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    }
+.references ul {
+    list-style-type: none;
+    padding-right: 0;
+    }
+.references li {
+    margin-bottom: 8px;
+    padding-right: 25px;
+    position: relative;
+    font-size: 9pt;
+    }
+.references li:before {
+    content: "[" counter(ref) "]";
+    counter-increment: ref;
+    position: absolute;
+    right: 0;
+    top: 0;
+    }
+body {
+    counter-reset: ref;
+    }
+.caption {
+    font-size: 10pt;
+    text-align: center;
+    margin-top: 5px;
+    color: #555;
+    }
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        }
+    .cover-container, .toc-container {
+        width: 100%;
+        height: 100vh;
+        /* 确保适应页面高度 */
+        overflow: hidden;
+        /* 避免内容溢出 */
+        page-break-after: always !important;
+        -webkit-print-color-adjust: exact !important;
+        }
+    }</style>
+<style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style id="MJX-CHTML-styles">
+mjx-container[jax="CHTML"] {
+  line-height: 0;
+}
+
+mjx-container [space="1"] {
+  margin-left: .111em;
+}
+
+mjx-container [space="2"] {
+  margin-left: .167em;
+}
+
+mjx-container [space="3"] {
+  margin-left: .222em;
+}
+
+mjx-container [space="4"] {
+  margin-left: .278em;
+}
+
+mjx-container [space="5"] {
+  margin-left: .333em;
+}
+
+mjx-container [rspace="1"] {
+  margin-right: .111em;
+}
+
+mjx-container [rspace="2"] {
+  margin-right: .167em;
+}
+
+mjx-container [rspace="3"] {
+  margin-right: .222em;
+}
+
+mjx-container [rspace="4"] {
+  margin-right: .278em;
+}
+
+mjx-container [rspace="5"] {
+  margin-right: .333em;
+}
+
+mjx-container [size="s"] {
+  font-size: 70.7%;
+}
+
+mjx-container [size="ss"] {
+  font-size: 50%;
+}
+
+mjx-container [size="Tn"] {
+  font-size: 60%;
+}
+
+mjx-container [size="sm"] {
+  font-size: 85%;
+}
+
+mjx-container [size="lg"] {
+  font-size: 120%;
+}
+
+mjx-container [size="Lg"] {
+  font-size: 144%;
+}
+
+mjx-container [size="LG"] {
+  font-size: 173%;
+}
+
+mjx-container [size="hg"] {
+  font-size: 207%;
+}
+
+mjx-container [size="HG"] {
+  font-size: 249%;
+}
+
+mjx-container [width="full"] {
+  width: 100%;
+}
+
+mjx-box {
+  display: inline-block;
+}
+
+mjx-block {
+  display: block;
+}
+
+mjx-itable {
+  display: inline-table;
+}
+
+mjx-row {
+  display: table-row;
+}
+
+mjx-row > * {
+  display: table-cell;
+}
+
+mjx-mtext {
+  display: inline-block;
+  text-align: left;
+}
+
+mjx-mstyle {
+  display: inline-block;
+}
+
+mjx-merror {
+  display: inline-block;
+  color: red;
+  background-color: yellow;
+}
+
+mjx-mphantom {
+  visibility: hidden;
+}
+
+_::-webkit-full-page-media, _:future, :root mjx-container {
+  will-change: opacity;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-math {
+  display: inline-block;
+  text-align: left;
+  line-height: 0;
+  text-indent: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 100%;
+  font-size-adjust: none;
+  letter-spacing: normal;
+  border-collapse: collapse;
+  word-wrap: normal;
+  word-spacing: normal;
+  white-space: nowrap;
+  direction: ltr;
+  padding: 1px 0;
+}
+
+mjx-container[jax="CHTML"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="CHTML"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="CHTML"][display="true"] mjx-math {
+  padding: 0;
+}
+
+mjx-container[jax="CHTML"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="CHTML"][justify="right"] {
+  text-align: right;
+}
+
+mjx-msubsup {
+  display: inline-block;
+  text-align: left;
+}
+
+mjx-script {
+  display: inline-block;
+  padding-right: .05em;
+  padding-left: .033em;
+}
+
+mjx-script > mjx-spacer {
+  display: block;
+}
+
+mjx-mi {
+  display: inline-block;
+  text-align: left;
+}
+
+mjx-c {
+  display: inline-block;
+}
+
+mjx-utext {
+  display: inline-block;
+  padding: .75em 0 .2em 0;
+}
+
+mjx-TeXAtom {
+  display: inline-block;
+  text-align: left;
+}
+
+mjx-mo {
+  display: inline-block;
+  text-align: left;
+}
+
+mjx-stretchy-h {
+  display: inline-table;
+  width: 100%;
+}
+
+mjx-stretchy-h > * {
+  display: table-cell;
+  width: 0;
+}
+
+mjx-stretchy-h > * > mjx-c {
+  display: inline-block;
+  transform: scalex(1.0000001);
+}
+
+mjx-stretchy-h > * > mjx-c::before {
+  display: inline-block;
+  width: initial;
+}
+
+mjx-stretchy-h > mjx-ext {
+  /* IE */ overflow: hidden;
+  /* others */ overflow: clip visible;
+  width: 100%;
+}
+
+mjx-stretchy-h > mjx-ext > mjx-c::before {
+  transform: scalex(500);
+}
+
+mjx-stretchy-h > mjx-ext > mjx-c {
+  width: 0;
+}
+
+mjx-stretchy-h > mjx-beg > mjx-c {
+  margin-right: -.1em;
+}
+
+mjx-stretchy-h > mjx-end > mjx-c {
+  margin-left: -.1em;
+}
+
+mjx-stretchy-v {
+  display: inline-block;
+}
+
+mjx-stretchy-v > * {
+  display: block;
+}
+
+mjx-stretchy-v > mjx-beg {
+  height: 0;
+}
+
+mjx-stretchy-v > mjx-end > mjx-c {
+  display: block;
+}
+
+mjx-stretchy-v > * > mjx-c {
+  transform: scaley(1.0000001);
+  transform-origin: left center;
+  overflow: hidden;
+}
+
+mjx-stretchy-v > mjx-ext {
+  display: block;
+  height: 100%;
+  box-sizing: border-box;
+  border: 0px solid transparent;
+  /* IE */ overflow: hidden;
+  /* others */ overflow: visible clip;
+}
+
+mjx-stretchy-v > mjx-ext > mjx-c::before {
+  width: initial;
+  box-sizing: border-box;
+}
+
+mjx-stretchy-v > mjx-ext > mjx-c {
+  transform: scaleY(500) translateY(.075em);
+  overflow: visible;
+}
+
+mjx-mark {
+  display: inline-block;
+  height: 0px;
+}
+
+mjx-mrow {
+  display: inline-block;
+  text-align: left;
+}
+
+mjx-mtable {
+  display: inline-block;
+  text-align: center;
+  vertical-align: .25em;
+  position: relative;
+  box-sizing: border-box;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+mjx-mstyle[size="s"] mjx-mtable {
+  vertical-align: .354em;
+}
+
+mjx-labels {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+mjx-table {
+  display: inline-block;
+  vertical-align: -.5ex;
+  box-sizing: border-box;
+}
+
+mjx-table > mjx-itable {
+  vertical-align: middle;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+mjx-labels > mjx-itable {
+  position: absolute;
+  top: 0;
+}
+
+mjx-mtable[justify="left"] {
+  text-align: left;
+}
+
+mjx-mtable[justify="right"] {
+  text-align: right;
+}
+
+mjx-mtable[justify="left"][side="left"] {
+  padding-right: 0 ! important;
+}
+
+mjx-mtable[justify="left"][side="right"] {
+  padding-left: 0 ! important;
+}
+
+mjx-mtable[justify="right"][side="left"] {
+  padding-right: 0 ! important;
+}
+
+mjx-mtable[justify="right"][side="right"] {
+  padding-left: 0 ! important;
+}
+
+mjx-mtable[align] {
+  vertical-align: baseline;
+}
+
+mjx-mtable[align="top"] > mjx-table {
+  vertical-align: top;
+}
+
+mjx-mtable[align="bottom"] > mjx-table {
+  vertical-align: bottom;
+}
+
+mjx-mtable[side="right"] mjx-labels {
+  min-width: 100%;
+}
+
+mjx-mtr {
+  display: table-row;
+  text-align: left;
+}
+
+mjx-mtr[rowalign="top"] > mjx-mtd {
+  vertical-align: top;
+}
+
+mjx-mtr[rowalign="center"] > mjx-mtd {
+  vertical-align: middle;
+}
+
+mjx-mtr[rowalign="bottom"] > mjx-mtd {
+  vertical-align: bottom;
+}
+
+mjx-mtr[rowalign="baseline"] > mjx-mtd {
+  vertical-align: baseline;
+}
+
+mjx-mtr[rowalign="axis"] > mjx-mtd {
+  vertical-align: .25em;
+}
+
+mjx-mtd {
+  display: table-cell;
+  text-align: center;
+  padding: .215em .4em;
+}
+
+mjx-mtd:first-child {
+  padding-left: 0;
+}
+
+mjx-mtd:last-child {
+  padding-right: 0;
+}
+
+mjx-mtable > * > mjx-itable > *:first-child > mjx-mtd {
+  padding-top: 0;
+}
+
+mjx-mtable > * > mjx-itable > *:last-child > mjx-mtd {
+  padding-bottom: 0;
+}
+
+mjx-tstrut {
+  display: inline-block;
+  height: 1em;
+  vertical-align: -.25em;
+}
+
+mjx-labels[align="left"] > mjx-mtr > mjx-mtd {
+  text-align: left;
+}
+
+mjx-labels[align="right"] > mjx-mtr > mjx-mtd {
+  text-align: right;
+}
+
+mjx-mtd[extra] {
+  padding: 0;
+}
+
+mjx-mtd[rowalign="top"] {
+  vertical-align: top;
+}
+
+mjx-mtd[rowalign="center"] {
+  vertical-align: middle;
+}
+
+mjx-mtd[rowalign="bottom"] {
+  vertical-align: bottom;
+}
+
+mjx-mtd[rowalign="baseline"] {
+  vertical-align: baseline;
+}
+
+mjx-mtd[rowalign="axis"] {
+  vertical-align: .25em;
+}
+
+mjx-msup {
+  display: inline-block;
+  text-align: left;
+}
+
+mjx-mn {
+  display: inline-block;
+  text-align: left;
+}
+
+mjx-msub {
+  display: inline-block;
+  text-align: left;
+}
+
+mjx-c::before {
+  display: block;
+  width: 0;
+}
+
+.MJX-TEX {
+  font-family: MJXZERO, MJXTEX;
+}
+
+.TEX-B {
+  font-family: MJXZERO, MJXTEX-B;
+}
+
+.TEX-I {
+  font-family: MJXZERO, MJXTEX-I;
+}
+
+.TEX-MI {
+  font-family: MJXZERO, MJXTEX-MI;
+}
+
+.TEX-BI {
+  font-family: MJXZERO, MJXTEX-BI;
+}
+
+.TEX-S1 {
+  font-family: MJXZERO, MJXTEX-S1;
+}
+
+.TEX-S2 {
+  font-family: MJXZERO, MJXTEX-S2;
+}
+
+.TEX-S3 {
+  font-family: MJXZERO, MJXTEX-S3;
+}
+
+.TEX-S4 {
+  font-family: MJXZERO, MJXTEX-S4;
+}
+
+.TEX-A {
+  font-family: MJXZERO, MJXTEX-A;
+}
+
+.TEX-C {
+  font-family: MJXZERO, MJXTEX-C;
+}
+
+.TEX-CB {
+  font-family: MJXZERO, MJXTEX-CB;
+}
+
+.TEX-FR {
+  font-family: MJXZERO, MJXTEX-FR;
+}
+
+.TEX-FRB {
+  font-family: MJXZERO, MJXTEX-FRB;
+}
+
+.TEX-SS {
+  font-family: MJXZERO, MJXTEX-SS;
+}
+
+.TEX-SSB {
+  font-family: MJXZERO, MJXTEX-SSB;
+}
+
+.TEX-SSI {
+  font-family: MJXZERO, MJXTEX-SSI;
+}
+
+.TEX-SC {
+  font-family: MJXZERO, MJXTEX-SC;
+}
+
+.TEX-T {
+  font-family: MJXZERO, MJXTEX-T;
+}
+
+.TEX-V {
+  font-family: MJXZERO, MJXTEX-V;
+}
+
+.TEX-VB {
+  font-family: MJXZERO, MJXTEX-VB;
+}
+
+mjx-stretchy-v mjx-c, mjx-stretchy-h mjx-c {
+  font-family: MJXZERO, MJXTEX-S1, MJXTEX-S4, MJXTEX, MJXTEX-A ! important;
+}
+
+@font-face /* 0 */ {
+  font-family: MJXZERO;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Zero.woff") format("woff");
+}
+
+@font-face /* 1 */ {
+  font-family: MJXTEX;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff") format("woff");
+}
+
+@font-face /* 2 */ {
+  font-family: MJXTEX-B;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff") format("woff");
+}
+
+@font-face /* 3 */ {
+  font-family: MJXTEX-I;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff") format("woff");
+}
+
+@font-face /* 4 */ {
+  font-family: MJXTEX-MI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff") format("woff");
+}
+
+@font-face /* 5 */ {
+  font-family: MJXTEX-BI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff") format("woff");
+}
+
+@font-face /* 6 */ {
+  font-family: MJXTEX-S1;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff") format("woff");
+}
+
+@font-face /* 7 */ {
+  font-family: MJXTEX-S2;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff") format("woff");
+}
+
+@font-face /* 8 */ {
+  font-family: MJXTEX-S3;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff") format("woff");
+}
+
+@font-face /* 9 */ {
+  font-family: MJXTEX-S4;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff") format("woff");
+}
+
+@font-face /* 10 */ {
+  font-family: MJXTEX-A;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff") format("woff");
+}
+
+@font-face /* 11 */ {
+  font-family: MJXTEX-C;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff") format("woff");
+}
+
+@font-face /* 12 */ {
+  font-family: MJXTEX-CB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff") format("woff");
+}
+
+@font-face /* 13 */ {
+  font-family: MJXTEX-FR;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff") format("woff");
+}
+
+@font-face /* 14 */ {
+  font-family: MJXTEX-FRB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff") format("woff");
+}
+
+@font-face /* 15 */ {
+  font-family: MJXTEX-SS;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff") format("woff");
+}
+
+@font-face /* 16 */ {
+  font-family: MJXTEX-SSB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff") format("woff");
+}
+
+@font-face /* 17 */ {
+  font-family: MJXTEX-SSI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff") format("woff");
+}
+
+@font-face /* 18 */ {
+  font-family: MJXTEX-SC;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff") format("woff");
+}
+
+@font-face /* 19 */ {
+  font-family: MJXTEX-T;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff") format("woff");
+}
+
+@font-face /* 20 */ {
+  font-family: MJXTEX-V;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff") format("woff");
+}
+
+@font-face /* 21 */ {
+  font-family: MJXTEX-VB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff") format("woff");
+}
+
+mjx-c.mjx-c210E.TEX-I::before {
+  padding: 0.694em 0.576em 0.011em 0;
+  content: "h";
+}
+
+mjx-c.mjx-c28::before {
+  padding: 0.75em 0.389em 0.25em 0;
+  content: "(";
+}
+
+mjx-c.mjx-c1D458.TEX-I::before {
+  padding: 0.694em 0.521em 0.011em 0;
+  content: "k";
+}
+
+mjx-c.mjx-c29::before {
+  padding: 0.75em 0.389em 0.25em 0;
+  content: ")";
+}
+
+mjx-c.mjx-c1D461.TEX-I::before {
+  padding: 0.626em 0.361em 0.011em 0;
+  content: "t";
+}
+
+mjx-c.mjx-c3D::before {
+  padding: 0.583em 0.778em 0.082em 0;
+  content: "=";
+}
+
+mjx-c.mjx-c7B.TEX-S4::before {
+  padding: 1.75em 0.806em 1.249em 0;
+  content: "{";
+}
+
+mjx-c.mjx-c1D453.TEX-I::before {
+  padding: 0.705em 0.55em 0.205em 0;
+  content: "f";
+}
+
+mjx-c.mjx-c2299::before {
+  padding: 0.583em 0.778em 0.083em 0;
+  content: "\2299";
+}
+
+mjx-c.mjx-c2212::before {
+  padding: 0.583em 0.778em 0.082em 0;
+  content: "\2212";
+}
+
+mjx-c.mjx-c32::before {
+  padding: 0.666em 0.5em 0 0;
+  content: "2";
+}
+
+mjx-c.mjx-c2B::before {
+  padding: 0.583em 0.778em 0.082em 0;
+  content: "+";
+}
+
+mjx-c.mjx-c1D456.TEX-I::before {
+  padding: 0.661em 0.345em 0.011em 0;
+  content: "i";
+}
+
+mjx-c.mjx-c1D454.TEX-I::before {
+  padding: 0.442em 0.477em 0.205em 0;
+  content: "g";
+}
+
+mjx-c.mjx-c69::before {
+  padding: 0.669em 0.278em 0 0;
+  content: "i";
+}
+
+mjx-c.mjx-c66::before {
+  padding: 0.705em 0.372em 0 0;
+  content: "f";
+}
+
+mjx-c.mjx-cA0::before {
+  padding: 0 0.25em 0 0;
+  content: "\A0";
+}
+
+mjx-c.mjx-c2265::before {
+  padding: 0.636em 0.778em 0.138em 0;
+  content: "\2265";
+}
+
+mjx-c.mjx-c3C::before {
+  padding: 0.54em 0.778em 0.04em 0;
+  content: "<";
+}
+
+mjx-c.mjx-c1D467.TEX-I::before {
+  padding: 0.442em 0.465em 0.011em 0;
+  content: "z";
+}
+
+mjx-c.mjx-c4C::before {
+  padding: 0.683em 0.625em 0 0;
+  content: "L";
+}
+
+mjx-c.mjx-c61::before {
+  padding: 0.448em 0.5em 0.011em 0;
+  content: "a";
+}
+
+mjx-c.mjx-c79::before {
+  padding: 0.431em 0.528em 0.204em 0;
+  content: "y";
+}
+
+mjx-c.mjx-c65::before {
+  padding: 0.448em 0.444em 0.011em 0;
+  content: "e";
+}
+
+mjx-c.mjx-c72::before {
+  padding: 0.442em 0.392em 0 0;
+  content: "r";
+}
+
+mjx-c.mjx-c4E::before {
+  padding: 0.683em 0.75em 0 0;
+  content: "N";
+}
+
+mjx-c.mjx-c6F::before {
+  padding: 0.448em 0.5em 0.01em 0;
+  content: "o";
+}
+
+mjx-c.mjx-c6D::before {
+  padding: 0.442em 0.833em 0 0;
+  content: "m";
+}
+
+mjx-c.mjx-c1D465.TEX-I::before {
+  padding: 0.442em 0.572em 0.011em 0;
+  content: "x";
+}
+
+mjx-c.mjx-c1D70E.TEX-I::before {
+  padding: 0.431em 0.571em 0.011em 0;
+  content: "\3C3";
+}
+
+mjx-c.mjx-c1D44A.TEX-I::before {
+  padding: 0.683em 1.048em 0.022em 0;
+  content: "W";
+}
+
+mjx-c.mjx-c2C::before {
+  padding: 0.121em 0.278em 0.194em 0;
+  content: ",";
+}
+
+mjx-c.mjx-c1D44F.TEX-I::before {
+  padding: 0.694em 0.429em 0.011em 0;
+  content: "b";
+}
+
+mjx-c.mjx-c1D719.TEX-I::before {
+  padding: 0.694em 0.596em 0.205em 0;
+  content: "\3D5";
+}
+
+mjx-c.mjx-c67::before {
+  padding: 0.453em 0.5em 0.206em 0;
+  content: "g";
+}
+
+mjx-c.mjx-c43::before {
+  padding: 0.705em 0.722em 0.021em 0;
+  content: "C";
+}
+
+mjx-c.mjx-c6E::before {
+  padding: 0.442em 0.556em 0 0;
+  content: "n";
+}
+
+mjx-c.mjx-c63::before {
+  padding: 0.448em 0.444em 0.011em 0;
+  content: "c";
+}
+
+mjx-c.mjx-c74::before {
+  padding: 0.615em 0.389em 0.01em 0;
+  content: "t";
+}
+
+mjx-c.mjx-c30::before {
+  padding: 0.666em 0.5em 0.022em 0;
+  content: "0";
+}
+
+mjx-c.mjx-c31::before {
+  padding: 0.666em 0.5em 0 0;
+  content: "1";
+}
+
+mjx-c.mjx-c2026::before {
+  padding: 0.12em 1.172em 0 0;
+  content: "\2026";
+}
+
+mjx-c.mjx-c1D43E.TEX-I::before {
+  padding: 0.683em 0.889em 0 0;
+  content: "K";
+}
+
+mjx-c.mjx-c1D466.TEX-I::before {
+  padding: 0.442em 0.49em 0.205em 0;
+  content: "y";
+}
+
+mjx-c.mjx-c1D45C.TEX-I::before {
+  padding: 0.441em 0.485em 0.011em 0;
+  content: "o";
+}
+
+mjx-c.mjx-c1D462.TEX-I::before {
+  padding: 0.442em 0.572em 0.011em 0;
+  content: "u";
+}
+
+mjx-c.mjx-c2032::before {
+  padding: 0.56em 0.275em 0 0;
+  content: "\2032";
+}
+
+mjx-c.mjx-c1D450.TEX-I::before {
+  padding: 0.442em 0.433em 0.011em 0;
+  content: "c";
+}
+
+mjx-c.mjx-c1D45A.TEX-I::before {
+  padding: 0.442em 0.878em 0.011em 0;
+  content: "m";
+}
+
+mjx-c.mjx-c1D442.TEX-I::before {
+  padding: 0.704em 0.763em 0.022em 0;
+  content: "O";
+}
+
+mjx-c.mjx-c1D441.TEX-I::before {
+  padding: 0.683em 0.888em 0 0;
+  content: "N";
+}
+
+mjx-c.mjx-c22C5::before {
+  padding: 0.31em 0.278em 0 0;
+  content: "\22C5";
+}
+
+mjx-c.mjx-c1D437.TEX-I::before {
+  padding: 0.683em 0.828em 0 0;
+  content: "D";
+}
+
+mjx-c.mjx-c6C::before {
+  padding: 0.694em 0.278em 0 0;
+  content: "l";
+}
+
+mjx-c.mjx-c2061::before {
+  padding: 0 0 0 0;
+  content: "";
+}
+
+mjx-c.mjx-c2248::before {
+  padding: 0.483em 0.778em 0 0;
+  content: "\2248";
+}
+</style></head><body><div class="cover-container" data-cid="DWTpsj">
+<!-- Geometric Background Layers -->
+<div class="geometric-layer" data-cid="Pa6B3l">
+<div class="shape-primary" data-cid="3sy55h"></div>
+<div class="shape-secondary" data-cid="WofkTa"></div>
+<div class="shape-accent" data-cid="q5AnRu"></div>
+<div class="shape-tertiary" data-cid="jUwYq8"></div>
+<div class="grid-overlay" data-cid="DG2RgD"></div>
+</div>
+<!-- Corner Decorations -->
+<div class="corner-decoration corner-top-left" data-cid="E4m_Tp"></div>
+<div class="corner-decoration corner-bottom-right" data-cid="NmbQpa"></div>
+<!-- Main Content -->
+<div class="content-wrapper" data-cid="OV1GA2">
+<!-- Header -->
+<div class="header-section" data-cid="E1kfo7">
+<div class="badge" data-cid="FStaHK">تقرير بحثي متقدم</div>
+</div>
+<!-- Title Section -->
+<div class="title-section" data-cid="NmVJv5">
+<h1 class="main-title" data-cid="7ZFYCz">
+                    البوابات الركورنتية<br data-cid="0S8yPu">
+                    الحالة اللوغاريتمية
+                </h1>
+<div class="title-accent-line" data-cid="7K4s_v"></div>
+<p class="subtitle" data-cid="nGa0O5">
+                    نمذجة متعددة الوسائط ذات التسلسل الطويل باستخدام شبكات البوابات الركورنتية المتقدمة والتحليل اللوغاريتمي للأنماط المعقدة
+                </p>
+</div>
+<!-- Middle Section -->
+<div class="middle-section" data-cid="qC9-Tp">
+<div class="description-block" data-cid="oZL2Be">
+<div class="description-title" data-cid="Pu49Nv">نطاق البحث</div>
+<p class="description-text" data-cid="H3p3G1">
+                        يركز هذا البحث على تطوير نماذج متقدمة للمعالجة المتسلسلة للبيانات متعددة الوسائط، مع التركيز على الهياكل الركورنتية والتحليل اللوغاريتمي للأداء والكفاءة.
+                    </p>
+</div>
+<div class="feature-list" data-cid="NNH3fP">
+<div class="feature-item" data-cid="cTf8YC">
+<div class="feature-icon" data-cid="wgMYcu"></div>
+<span data-cid="K95RaF">معالجة متقدمة للتسلسلات الطويلة</span>
+</div>
+<div class="feature-item" data-cid="36uUtW">
+<div class="feature-icon" data-cid="oQ8c-e"></div>
+<span data-cid="LHANnU">تحليل لوغاريتمي للتعقيد الحسابي</span>
+</div>
+<div class="feature-item" data-cid="0cXIFW">
+<div class="feature-icon" data-cid="ody6JK"></div>
+<span data-cid="ZabsZC">دعم البيانات متعددة الوسائط</span>
+</div>
+<div class="feature-item" data-cid="W61VSo">
+<div class="feature-icon" data-cid="skDCry"></div>
+<span data-cid="TseH_S">نماذج بوابات ركورنتية محسّنة</span>
+</div>
+<div class="feature-item" data-cid="wOlhTM">
+<div class="feature-icon" data-cid="h_3tDV"></div>
+<span data-cid="Ejg_Nh">تقييم شامل للأداء والدقة</span>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer-section" data-cid="EU2XHA">
+<div class="footer-left" data-cid="XBzTjM">
+<div class="organization-name" data-cid="20zwYd">مركز البحث العلمي المتقدم</div>
+<div class="report-date" data-cid="SmaQpl">31 يناير 2026</div>
+</div>
+<div class="footer-right" data-cid="LCtxwj">
+<div class="page-indicator" data-cid="U-YzfQ">صفحة 1</div>
+<div class="footer-accent" data-cid="5S9fn3"></div>
+</div>
+</div>
+</div>
+</div><div class="toc-container" data-cid="B8uwzU">
+<div class="corner-decoration corner-top-left" data-cid="b9MrQy"></div>
+<div class="corner-decoration corner-bottom-right" data-cid="HaTyKa"></div>
+<h1 data-cid="ncrC49">فهرس المحتويات</h1>
+<ul data-cid="3op5Oh">
+<li class="level-1" data-cid="7vJLnw">
+<a href="#section-1" data-cid="VDaTqt">1. المقدمة</a>
+</li>
+<li class="level-1" data-cid="OW_KHg">
+<a href="#section-2" data-cid="mYBDCH">2. الأعمال ذات الصلة</a>
+</li>
+<li class="level-1" data-cid="EDbizY">
+<a href="#section-3" data-cid="eqvw74">3. المنهجية</a>
+<ul data-cid="KCYYrV">
+<li class="level-2" data-cid="oALAbk">
+<a href="#section-3-1" data-cid="9TkESk">3.1. الترميز الأولي</a>
+</li>
+<li class="level-2" data-cid="lRGli6">
+<a href="#section-3-2" data-cid="FUDI04">3.2. بنية LSG الأساسية</a>
+</li>
+<li class="level-2" data-cid="sHrJGF">
+<a href="#section-3-3" data-cid="VF8m8l">3.3. التكييف متعدد الوسائط</a>
+</li>
+</ul>
+</li>
+<li class="level-1" data-cid="298D_t">
+<a href="#section-4" data-cid="o9Xcy6">4. التعقيد الحسابي</a>
+</li>
+<li class="level-1" data-cid="utICF9">
+<a href="#section-5" data-cid="PjwC9e">5. التجارب</a>
+<ul data-cid="PmWyTT">
+<li class="level-2" data-cid="cEe_QB">
+<a href="#section-5-1" data-cid="A0lKN4">5.1. مهمة التسلسل الطويل: Long-Range Arena</a>
+</li>
+<li class="level-2" data-cid="fkFu99">
+<a href="#section-5-2" data-cid="XjEg06">5.2. مهمة متعددة الوسائط: VQA-v2</a>
+</li>
+<li class="level-2" data-cid="_3RzHb">
+<a href="#section-5-3" data-cid="_jp7l3">5.3. دراسة استئصالية (Ablation Study)</a>
+</li>
+</ul>
+</li>
+<li class="level-1" data-cid="I46RIq">
+<a href="#section-6" data-cid="b6wczX">6. القيود</a>
+</li>
+<li class="level-1" data-cid="0iGYfM">
+<a href="#section-7" data-cid="dpo71Y">7. الخاتمة</a>
+</li>
+<li class="level-1" data-cid="hpDILM">
+<a href="#section-8" data-cid="-wTXiu">المراجع</a>
+</li>
+</ul>
+</div><div class="container" data-cid="zdkzZz">
+<header data-cid="fm4g-a">
+<h1 id="section-1" data-cid="FvuC9N">LSG: البوابات Рекурренتية الحالة اللوغاريتمية للنمذجة متعددة الوسائط ذات التسلسل الطويل</h1>
+<div class="authors" data-cid="UTUBCM">
+                نظام بحث وتطوير الذكاء الاصطناعي (المؤلف الأول)
+            </div>
+<div class="affiliation" data-cid="82IxMu">
+                مختبرات الأبحاث المتقدمة
+            </div>
+<div class="date" data-cid="cp5S6P">31 يناير 2026</div>
+</header>
+<section class="abstract" data-cid="3ZCtIp">
+<h3 id="section-0-1" data-cid="r5lFEv">ملخص</h3>
+<p data-cid="JdWhf0">
+                تواجه النماذج متعددة الوسائط الحديثة تحديات كبيرة في قابلية التوسع عند معالجة التسلسلات الطويلة بسبب التعقيد الحسابي التربيعي الكامن في آليات الانتباه. القيد الحسابي الرئيسي هو أن النماذج الخطية الزمنية الحالية، مثل نماذج فضاء الحالة (SSMs)، تتطلب حجم حالة كبيرًا وتظهر أداءً دون المستوى الأمثل في مهام دمج الوسائط المتقاطعة. نقدم في هذا العمل البوابات Рекурренتية الحالة اللوغاريتمية (LSG)، وهي بنية рекурренتية جديدة تتميز بتحديثات حالة عنصرية وآلية بوابات ذات تباعد لوغاريتمي. على عكس نماذج فضاء الحالة التي تعتمد على أنظمة الزمن المستمر، تستخدم LSG آلية بوابات منفصلة متعددة الدقة، وهي بطبيعتها خالية من ضرب المصفوفات (MatMul-free) في جوهرها التكراري. أظهرت النتائج أن LSG تحقق تسريعًا بمقدار 1.8 مرة مقارنة بنموذج Mamba-2 على معيار Long-Range Arena (LRA). علاوة على ذلك، تحسن LSG الأداء بنسبة 3.4% على مجموعة بيانات VQA-v2 مقارنة بالنماذج الهجينة ذات الحجم المماثل، مع استخدام ذاكرة أقل بنسبة 40% أثناء الاستدلال.
+            </p>
+</section>
+<section id="introduction" data-cid="n0hL21">
+<h2 id="section-1" data-cid="cmpH_W">1. المقدمة</h2>
+<p data-cid="EjU6G_">
+                شهدت النماذج اللغوية الكبيرة (LLMs) والنماذج متعددة الوسائط (LMMs) تطورًا هائلاً، مما أتاح قدرات غير مسبوقة في فهم وتوليد المحتوى عبر وسائط متعددة مثل النصوص والصور والصوت. ومع ذلك، فإن العمود الفقري لهذه النماذج، وهو آلية الانتباه الذاتي في بنية Transformer [1]، يفرض عنق زجاجة حسابي حاد. يتناسب التعقيد الحسابي واستهلاك الذاكرة للانتباه الذاتي بشكل تربيعي مع طول التسلسل ($O(N^2)$)، مما يجعل معالجة المدخلات الطويلة جدًا - مثل المستندات الكاملة أو مقاطع الفيديو عالية الدقة أو التسلسلات الصوتية الطويلة - باهظة التكلفة من الناحية الحسابية أو مستحيلة عمليًا.
+            </p>
+<p data-cid="JOuseD">
+                لمواجهة هذا التحدي، ظهرت بنى بديلة تهدف إلى تحقيق تعقيد خطي أو شبه خطي. برزت نماذج فضاء الحالة (SSMs)، ولا سيما التطورات الحديثة مثل Mamba [2]، كبديل واعد. تستخدم هذه النماذج آلية рекурренتية مستوحاة من أنظمة التحكم الكلاسيكية، مما يقلل التعقيد إلى $O(N)$. على الرغم من كفاءتها، غالبًا ما تتطلب نماذج SSMs حجم حالة كبيرًا ($D \times N$) للحفاظ على المعلومات عبر التسلسلات الطويلة، ويمكن أن تكون آليات الاختيار الخاصة بها معقدة للتحسين وقد لا تلتقط بشكل مثالي التبعيات بعيدة المدى غير المنتظمة. علاوة على ذلك، عند تطبيقها على المهام متعددة الوسائط، غالبًا ما تتطلب النماذج الحالية، مثل Flamingo [3]، وحدات ترميز منفصلة وثقيلة لكل وسيط، يليها طبقات دمج معقدة، مما يحد من الكفاءة الشاملة.
+            </p>
+<p data-cid="-dEvmG">
+                تكمن المشكلة الأساسية في إيجاد بنية تحقق توازنًا بين الكفاءة الحسابية (تعقيد خطي زمنيًا)، والقدرة على النمذجة (التقاط التبعيات بعيدة المدى)، والمرونة في التعامل مع وسائط متعددة ضمن إطار موحد. إن النماذج الحالية إما تضحي بالكفاءة من أجل الأداء (Transformers) أو قد تضحي ببعض القدرة على النمذجة من أجل الكفاءة (بعض نماذج SSMs). بناءً على هذه الفجوة، نقترح بنية جديدة تعالج هذه المقايضات بشكل مباشر.
+            </p>
+<p data-cid="Wn29Eh">
+                في هذه الورقة، نقدم مساهماتنا الرئيسية على النحو التالي:
+            </p>
+<ul data-cid="IO_lGV">
+<li data-cid="i_POMl">نقدم البوابات Рекурренتية الحالة اللوغاريتمية (LSG)، وهي بنية جديدة تعالج التسلسلات الطويلة بكفاءة. تستخدم LSG مجموعة من الحالات المتوازية التي يتم تحديثها على فترات زمنية متباعدة لوغاريتميًا، مما يسمح بالتقاط التبعيات متعددة المقاييس في وقت خطي.</li>
+<li data-cid="9CRnh1">نوضح أن جوهر آلية التحديث في LSG خالٍ من ضرب المصفوفات الكبيرة (MatMul-free)، حيث يعتمد على عمليات عنصرية (Hadamard products)، مما يقلل بشكل كبير من الحمل الحسابي ويجعل البنية صديقة للتكميم (quantization-friendly).</li>
+<li data-cid="lXiCHV">نبرهن على أن LSG تتفوق على خطوط الأساس القوية في مهام متعددة، بما في ذلك معالجة التسلسلات الطويلة (Long-Range Arena) والنمذجة متعددة الوسائط (VQA-v2)، مع تحقيق كفاءة حسابية وذاكرة فائقة.</li>
+</ul>
+</section>
+<section id="related-work" data-cid="ePxSiC">
+<h2 id="section-2" data-cid="YdZM18">2. الأعمال ذات الصلة</h2>
+<p data-cid="KX_K70">
+<strong data-cid="Uk6dyY">بنى الانتباه الفعالة:</strong> تم اقتراح العديد من المتغيرات لتقليل التعقيد التربيعي للانتباه. تتضمن هذه الطرق الانتباه الخطي [4]، الذي يستخدم تقريب kernel لفك اقتران حساب مصفوفة الانتباه، وطرق الانتباه المتناثر (sparse attention) [5] التي تقيد حساب الانتباه بمواقع محددة مسبقًا. على الرغم من أنها أكثر كفاءة، إلا أن هذه الطرق غالبًا ما تأتي مع انخفاض طفيف في الأداء مقارنة بالانتباه الكامل وقد تتطلب ضبطًا دقيقًا لأنماط التناثر.
+            </p>
+<p data-cid="6aqbib">
+<strong data-cid="znEUpX">نماذج فضاء الحالة (SSMs):</strong> مستوحاة من أنظمة التحكم، ظهرت نماذج فضاء الحالة كفئة قوية من نماذج التسلسل الخطي الزمني. بدأت مع S4 [6] وتطورت إلى بنى أحدث مثل Mamba [2] و Mamba-2 [7]، والتي تقدم آليات اختيار تعتمد على المدخلات لتحسين نمذجة المحتوى. تعمل هذه النماذج في وضعين: وضع рекурренتي فعال للاستدلال ووضع متوازي قابل للتدريب. يكمن نجاحها في قدرتها على ضغط التاريخ الطويل في متجه حالة ثابت الحجم، ولكنها قد تواجه صعوبة في التبعيات الدقيقة التي لا تتناسب جيدًا مع طبيعتها المستمرة.
+            </p>
+<p data-cid="ZX32QZ">
+<strong data-cid="qGaOpU">البنى الخالية من ضرب المصفوفات (MatMul-free):</strong> مع تزايد هيمنة عمليات ضرب المصفوفات (MatMul) على استهلاك الطاقة في الأجهزة الحديثة، اكتسبت الأبحاث حول البنى الخالية من MatMul زخمًا. نماذج مثل MLP-Mixer [8] تستبدل الانتباه الذاتي بالكامل بطبقات الإدراك متعدد الطبقات (MLPs) المطبقة عبر الأبعاد المكانية والبعدية. تهدف الأعمال الأحدث [9] إلى استبدال عمليات MatMul بعمليات عنصرية أكثر كفاءة في استهلاك الطاقة، مثل جداء هادامارد، مما يفتح آفاقًا جديدة للحوسبة منخفضة الدقة.
+            </p>
+<p data-cid="sSO62g">
+<strong data-cid="nDrpM_">النماذج متعددة الوسائط الفعالة:</strong> تتطلب النماذج متعددة الوسائط التقليدية، مثل Flamingo [3] و BLIP [10]، غالبًا وحدات ترميز ضخمة ومجمدة مسبقًا لكل وسيط (مثل ViT للصور و LLM للنص). يتم بعد ذلك دمج التمثيلات من خلال طبقات انتباه متقاطعة إضافية، مما يزيد من التعقيد. تستكشف الأبحاث الحديثة [11] بنى أكثر توحيدًا حيث يمكن لآلية تسلسل واحدة معالجة أنواع مختلفة من التوكنات (tokens) الممثلة للوسائط المختلفة، مما يعد بكفاءة أكبر.
+            </p>
+</section>
+<section id="method" data-cid="VFGIQM">
+<h2 id="section-3" data-cid="jltDpH">3. المنهجية</h2>
+<p data-cid="GLMBeF">
+                في هذا القسم، نصف رسميًا بنية البوابات Рекурренتية الحالة اللوغاريتمية (LSG). نبدأ بتحديد المتغيرات الأساسية ثم نقدم معادلات التحديث للحالة.
+            </p>
+<h3 id="section-3-1" data-cid="g8eLnJ">3.1. الترميز الأولي</h3>
+<p data-cid="FVUiLF">
+                ليكن $X = (x_1, x_2, \dots, x_N)$ تسلسل مدخلات، حيث $x_t \in \mathbb{R}^D$ هو متجه الميزة في الخطوة الزمنية $t$ ، و $N$ هو طول التسلسل، و $D$ هو بُعد النموذج. هدفنا هو حساب تسلسل مخرجات $Y = (y_1, y_2, \dots, y_N)$ حيث $y_t \in \mathbb{R}^D$.
+            </p>
+<h3 id="section-3-2" data-cid="Tm1cRz">3.2. بنية LSG الأساسية</h3>
+<p data-cid="BEGMcr">
+                على عكس النماذج Рекурренتية القياسية التي تحدث حالتها في كل خطوة زمنية ($h_t$ يعتمد على $h_{t-1}$)، تستخدم LSG مجموعة من $K$ حالة متوازية، $\{h^{(k)}\}_{k=0}^{K-1}$، حيث $K = \lceil \log_2 N \rceil$. كل حالة $h_t^{(k)}$ يتم تحديثها على فترة زمنية $2^k$. هذا يسمح للنموذج بالتقاط التبعيات عبر مقاييس زمنية مختلفة في وقت واحد.
+            </p>
+<p data-cid="T_5tp8">
+                لكل خطوة زمنية $t$ ولكل مقياس $k \in \{0, \dots, K-1\}$, يتم تحديث الحالة $h_t^{(k)} \in \mathbb{R}^{D'}$ (حيث $D'$ هو بُعد الحالة) على النحو التالي:
+            </p>
+<div class="equation" data-cid="V9GMJi">
+                <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" tabindex="0" ctxtmenu_counter="0" style="font-size: 101.1%; position: relative;" data-cid="LTMOuz"><mjx-math display="true" class="MJX-TEX" aria-hidden="true" style="margin-left: 0px; margin-right: 0px;" data-cid="zx-RBX"><mjx-msubsup data-cid="LrsMwR"><mjx-mi class="mjx-i" data-cid="xRQKEI"><mjx-c class="mjx-c210E TEX-I" data-cid="q7jbPg"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="4zYQLJ"><mjx-texatom size="s" texclass="ORD" data-cid="ZDH_U-"><mjx-mo class="mjx-n" data-cid="f2eadJ"><mjx-c class="mjx-c28" data-cid="6MI3Ls"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="_VlLkv"><mjx-c class="mjx-c1D458 TEX-I" data-cid="c1zpBx"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="99fPoX"><mjx-c class="mjx-c29" data-cid="StnlzE"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="MydZiu"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="-vgEAV"><mjx-c class="mjx-c1D461 TEX-I" data-cid="_cB4WO"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-mo class="mjx-n" space="4" data-cid="wIn_PO"><mjx-c class="mjx-c3D" data-cid="0_CzHw"></mjx-c></mjx-mo><mjx-mrow space="4" data-cid="slCpyn"><mjx-mo class="mjx-s4" data-cid="29Lcry"><mjx-c class="mjx-c7B TEX-S4" data-cid="T0pxXd"></mjx-c></mjx-mo><mjx-mtable style="min-width: 14.714em;" data-cid="dc3Z-1"><mjx-table data-cid="YuMkzw"><mjx-itable data-cid="saxPjL"><mjx-mtr data-cid="gAQV9R"><mjx-mtd style="text-align: left; padding-right: 0.5em; padding-bottom: 0.1em;" data-cid="7Zlh8g"><mjx-msubsup data-cid="e3rvep"><mjx-mi class="mjx-i" data-cid="dF4XKB"><mjx-c class="mjx-c1D453 TEX-I" data-cid="E-WZIW"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: -0.06em;" data-cid="tgU1JX"><mjx-texatom size="s" texclass="ORD" style="margin-left: 0.16em;" data-cid="lzwcD6"><mjx-mo class="mjx-n" data-cid="uHlzUN"><mjx-c class="mjx-c28" data-cid="-OP-Ae"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="dGEDCm"><mjx-c class="mjx-c1D458 TEX-I" data-cid="V5gz1t"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="dwXPO8"><mjx-c class="mjx-c29" data-cid="WpQjbs"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="-V3ri8"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="iWwzIl"><mjx-c class="mjx-c1D461 TEX-I" data-cid="QkTt8N"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-mo class="mjx-n" space="3" data-cid="xGpC4N"><mjx-c class="mjx-c2299" data-cid="gJB6pA"></mjx-c></mjx-mo><mjx-msubsup space="3" data-cid="s6lXQe"><mjx-mi class="mjx-i" data-cid="jXIRJ6"><mjx-c class="mjx-c210E TEX-I" data-cid="bccI9c"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.378em; margin-left: 0px;" data-cid="1xJ5kl"><mjx-texatom size="s" texclass="ORD" data-cid="nh8P2b"><mjx-mo class="mjx-n" data-cid="p5iUqY"><mjx-c class="mjx-c28" data-cid="_hOiz3"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="TAIQLN"><mjx-c class="mjx-c1D458 TEX-I" data-cid="dL489_"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="QTCNaL"><mjx-c class="mjx-c29" data-cid="VzlFs-"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="v0C9Rl"></mjx-spacer><mjx-texatom size="s" texclass="ORD" data-cid="TrZ7vA"><mjx-mi class="mjx-i" data-cid="GAnymV"><mjx-c class="mjx-c1D461 TEX-I" data-cid="1o-fMO"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="tb_Xp5"><mjx-c class="mjx-c2212" data-cid="LufkKK"></mjx-c></mjx-mo><mjx-msup data-cid="YNwvP7"><mjx-mn class="mjx-n" data-cid="aqTYdd"><mjx-c class="mjx-c32" data-cid="GS6xNO"></mjx-c></mjx-mn><mjx-script style="vertical-align: 0.289em;" data-cid="C6X2mm"><mjx-mi class="mjx-i" size="s" data-cid="mH8j4T"><mjx-c class="mjx-c1D458 TEX-I" data-cid="yT5XVh"></mjx-c></mjx-mi></mjx-script></mjx-msup></mjx-texatom></mjx-script></mjx-msubsup><mjx-mo class="mjx-n" space="3" data-cid="NIPzn0"><mjx-c class="mjx-c2B" data-cid="EjSlA0"></mjx-c></mjx-mo><mjx-msubsup space="3" data-cid="6c8_qk"><mjx-mi class="mjx-i" data-cid="lYz4Ci"><mjx-c class="mjx-c1D456 TEX-I" data-cid="Tu79On"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="juq0vK"><mjx-texatom size="s" texclass="ORD" data-cid="wgzdtB"><mjx-mo class="mjx-n" data-cid="MkeDv4"><mjx-c class="mjx-c28" data-cid="Kll3Tl"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="8LTc-H"><mjx-c class="mjx-c1D458 TEX-I" data-cid="pqZKuq"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="OuTbGq"><mjx-c class="mjx-c29" data-cid="RbDrqk"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="8MIJTd"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="PxL7Ui"><mjx-c class="mjx-c1D461 TEX-I" data-cid="17UjT4"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-mo class="mjx-n" space="3" data-cid="BfbiaB"><mjx-c class="mjx-c2299" data-cid="FCE_2P"></mjx-c></mjx-mo><mjx-msubsup space="3" data-cid="8c4c23"><mjx-mi class="mjx-i" data-cid="Jclg8-"><mjx-c class="mjx-c1D454 TEX-I" data-cid="QF7BG1"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="360iEz"><mjx-texatom size="s" texclass="ORD" data-cid="u6-Xdx"><mjx-mo class="mjx-n" data-cid="P9ClO2"><mjx-c class="mjx-c28" data-cid="mF_P4H"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="naYatn"><mjx-c class="mjx-c1D458 TEX-I" data-cid="04RvUG"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="p-CU-_"><mjx-c class="mjx-c29" data-cid="tnJq17"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="QBOel1"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="IPn-VL"><mjx-c class="mjx-c1D461 TEX-I" data-cid="rLlZue"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-tstrut data-cid="WThgsm"></mjx-tstrut></mjx-mtd><mjx-mtd style="text-align: left; padding-left: 0.5em; padding-bottom: 0.1em;" data-cid="qWYi0V"><mjx-mtext class="mjx-n" data-cid="c3kDkh"><mjx-c class="mjx-c69" data-cid="Kv4UvR"></mjx-c><mjx-c class="mjx-c66" data-cid="7hVu4g"></mjx-c><mjx-c class="mjx-cA0" data-cid="i2Kg81"></mjx-c></mjx-mtext><mjx-mi class="mjx-i" data-cid="By8SAf"><mjx-c class="mjx-c1D461 TEX-I" data-cid="0IpxXf"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="4" data-cid="_JeW-s"><mjx-c class="mjx-c2265" data-cid="W9n9yH"></mjx-c></mjx-mo><mjx-msup space="4" data-cid="hEzg0n"><mjx-mn class="mjx-n" data-cid="p-ghM8"><mjx-c class="mjx-c32" data-cid="Q4bBRw"></mjx-c></mjx-mn><mjx-script style="vertical-align: 0.363em;" data-cid="hdRu4s"><mjx-mi class="mjx-i" size="s" data-cid="o5ysBQ"><mjx-c class="mjx-c1D458 TEX-I" data-cid="LFJZNy"></mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-tstrut data-cid="Umuovw"></mjx-tstrut></mjx-mtd></mjx-mtr><mjx-mtr data-cid="Wyt8Fb"><mjx-mtd style="text-align: left; padding-right: 0.5em; padding-top: 0.1em;" data-cid="JXfM5C"><mjx-msubsup data-cid="mTEurv"><mjx-mi class="mjx-i" data-cid="kHTx4w"><mjx-c class="mjx-c1D456 TEX-I" data-cid="cT9ofc"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="ZWqqrW"><mjx-texatom size="s" texclass="ORD" data-cid="w4tnjM"><mjx-mo class="mjx-n" data-cid="YvSw0k"><mjx-c class="mjx-c28" data-cid="JZOmvL"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="7MLia5"><mjx-c class="mjx-c1D458 TEX-I" data-cid="QzxCK6"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="GiXgxu"><mjx-c class="mjx-c29" data-cid="v1sUYt"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="8OT4o1"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="motEs8"><mjx-c class="mjx-c1D461 TEX-I" data-cid="bs8T9P"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-mo class="mjx-n" space="3" data-cid="RyWUBE"><mjx-c class="mjx-c2299" data-cid="sZpYPQ"></mjx-c></mjx-mo><mjx-msubsup space="3" data-cid="vGbhAi"><mjx-mi class="mjx-i" data-cid="zTPm-k"><mjx-c class="mjx-c1D454 TEX-I" data-cid="7shsFY"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="wVkPAJ"><mjx-texatom size="s" texclass="ORD" data-cid="rmabMK"><mjx-mo class="mjx-n" data-cid="gxBW-3"><mjx-c class="mjx-c28" data-cid="GKeKpV"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="4WNOQ2"><mjx-c class="mjx-c1D458 TEX-I" data-cid="tE60Oq"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="naLPOx"><mjx-c class="mjx-c29" data-cid="EwXdjr"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="nVgD94"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="YHA92-"><mjx-c class="mjx-c1D461 TEX-I" data-cid="8GosmH"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-tstrut data-cid="xv8PfC"></mjx-tstrut></mjx-mtd><mjx-mtd style="text-align: left; padding-left: 0.5em; padding-top: 0.1em;" data-cid="iSVZGp"><mjx-mtext class="mjx-n" data-cid="30P67K"><mjx-c class="mjx-c69" data-cid="B3xo9j"></mjx-c><mjx-c class="mjx-c66" data-cid="vLV5mr"></mjx-c><mjx-c class="mjx-cA0" data-cid="2oT-yZ"></mjx-c></mjx-mtext><mjx-mi class="mjx-i" data-cid="_teOu4"><mjx-c class="mjx-c1D461 TEX-I" data-cid="95Fib8"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="4" data-cid="A83dK-"><mjx-c class="mjx-c3C" data-cid="PXj679"></mjx-c></mjx-mo><mjx-msup space="4" data-cid="HApgTW"><mjx-mn class="mjx-n" data-cid="BAoMhi"><mjx-c class="mjx-c32" data-cid="A_xDQb"></mjx-c></mjx-mn><mjx-script style="vertical-align: 0.363em;" data-cid="8QZoxB"><mjx-mi class="mjx-i" size="s" data-cid="v1TFoz"><mjx-c class="mjx-c1D458 TEX-I" data-cid="Coli9z"></mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-tstrut data-cid="Dc6et-"></mjx-tstrut></mjx-mtd></mjx-mtr></mjx-itable></mjx-table></mjx-mtable><mjx-mo class="mjx-n" style="vertical-align: 0.25em;" data-cid="UHusKB"></mjx-mo></mjx-mrow></mjx-math><mjx-assistive-mml unselectable="on" display="block" data-cid="5Br73g"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" data-cid="ksXr9l"><msubsup data-cid="MEa-kB"><mi data-cid="olEFN-">h</mi><mi data-cid="YSs3Zx">t</mi><mrow data-mjx-texclass="ORD" data-cid="BQ3OZ6"><mo stretchy="false" data-cid="8SB2Jq">(</mo><mi data-cid="ag_vGv">k</mi><mo stretchy="false" data-cid="NXIJxD">)</mo></mrow></msubsup><mo data-cid="QR1feV">=</mo><mrow data-mjx-texclass="INNER" data-cid="jQdgEw"><mo data-mjx-texclass="OPEN" data-cid="1-UBBS">{</mo><mtable columnalign="left left" columnspacing="1em" rowspacing=".2em" data-cid="VvjMcd"><mtr data-cid="oO75rF"><mtd data-cid="5z6l3z"><msubsup data-cid="6eiYHp"><mi data-cid="g5Mg0J">f</mi><mi data-cid="levDwx">t</mi><mrow data-mjx-texclass="ORD" data-cid="e5s-9L"><mo stretchy="false" data-cid="OzAbJf">(</mo><mi data-cid="vH5tia">k</mi><mo stretchy="false" data-cid="rjmwsp">)</mo></mrow></msubsup><mo data-cid="PsPjyu">⊙</mo><msubsup data-cid="UZcZLQ"><mi data-cid="obaR8S">h</mi><mrow data-mjx-texclass="ORD" data-cid="X4PYNG"><mi data-cid="TbyUZa">t</mi><mo data-cid="JfWU15">−</mo><msup data-cid="q9mE84"><mn data-cid="8rXnwj">2</mn><mi data-cid="DP2fML">k</mi></msup></mrow><mrow data-mjx-texclass="ORD" data-cid="TfbdtM"><mo stretchy="false" data-cid="fspLZb">(</mo><mi data-cid="nVmHbn">k</mi><mo stretchy="false" data-cid="utsyAq">)</mo></mrow></msubsup><mo data-cid="Gba-Xg">+</mo><msubsup data-cid="vKIyHT"><mi data-cid="0Z6yeg">i</mi><mi data-cid="a2qxN-">t</mi><mrow data-mjx-texclass="ORD" data-cid="c0oMXm"><mo stretchy="false" data-cid="55-NcG">(</mo><mi data-cid="_CFEcE">k</mi><mo stretchy="false" data-cid="Yd_3nq">)</mo></mrow></msubsup><mo data-cid="qjJxBi">⊙</mo><msubsup data-cid="hpzrev"><mi data-cid="0hEuP6">g</mi><mi data-cid="NxOeNQ">t</mi><mrow data-mjx-texclass="ORD" data-cid="IpuwmR"><mo stretchy="false" data-cid="vi9maA">(</mo><mi data-cid="aq2sYv">k</mi><mo stretchy="false" data-cid="fSdHXJ">)</mo></mrow></msubsup></mtd><mtd data-cid="tn3WzW"><mtext data-cid="gH29Ct">if&nbsp;</mtext><mi data-cid="PL-LLj">t</mi><mo data-cid="-qCaA9">≥</mo><msup data-cid="opMOg4"><mn data-cid="Lwn6DE">2</mn><mi data-cid="B19vPl">k</mi></msup></mtd></mtr><mtr data-cid="8Eadc-"><mtd data-cid="bEDun4"><msubsup data-cid="yNhS9v"><mi data-cid="Bnnk-r">i</mi><mi data-cid="_1LJ-V">t</mi><mrow data-mjx-texclass="ORD" data-cid="AkQBJF"><mo stretchy="false" data-cid="qvUQ9y">(</mo><mi data-cid="D1XG7X">k</mi><mo stretchy="false" data-cid="_ShhRr">)</mo></mrow></msubsup><mo data-cid="zEtzr2">⊙</mo><msubsup data-cid="4PWSOq"><mi data-cid="RPZzvV">g</mi><mi data-cid="LKqAXp">t</mi><mrow data-mjx-texclass="ORD" data-cid="B9cJZP"><mo stretchy="false" data-cid="lqZasf">(</mo><mi data-cid="cGVpWO">k</mi><mo stretchy="false" data-cid="4JhGme">)</mo></mrow></msubsup></mtd><mtd data-cid="FQkznM"><mtext data-cid="QxJGVd">if&nbsp;</mtext><mi data-cid="chN8mv">t</mi><mo data-cid="NfI9Dc">&lt;</mo><msup data-cid="jfIct8"><mn data-cid="qacmhb">2</mn><mi data-cid="71CyTy">k</mi></msup></mtd></mtr></mtable><mo data-mjx-texclass="CLOSE" fence="true" stretchy="true" symmetric="true" data-cid="hi7OqW"></mo></mrow></math></mjx-assistive-mml></mjx-container>
+                <span class="caption" data-cid="8L76V0">(المعادلة 1: تحديث الحالة اللوغاريتمية)</span>
+</div>
+<p data-cid="qoIK9I">
+                حيث $\odot$ يمثل جداء هادامارد (الضرب العنصري). البوابات $f_t^{(k)}$ (بوابة النسيان)، $i_t^{(k)}$ (بوابة الإدخال)، والمرشح $g_t^{(k)}$ يتم حسابها من المدخل الحالي $x_t$:
+            </p>
+<div class="equation" data-cid="hasfPo">
+                <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" tabindex="0" ctxtmenu_counter="1" style="font-size: 101.1%; position: relative;" data-cid="i7TV7F"><mjx-math display="true" class="MJX-TEX" aria-hidden="true" style="margin-left: 0px; margin-right: 0px;" data-cid="AIaFVK"><mjx-mtable style="min-width: 9.76em;" data-cid="kgHzhZ"><mjx-table data-cid="-zp21E"><mjx-itable data-cid="JXXr_r"><mjx-mtr data-cid="4bH6jl"><mjx-mtd style="text-align: right; padding-right: 0px; padding-bottom: 0.15em;" data-cid="aEnwZg"><mjx-msub data-cid="Ti4Oeq"><mjx-mi class="mjx-i" data-cid="uNk2bh"><mjx-c class="mjx-c1D467 TEX-I" data-cid="44ctfV"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="c4iRac"><mjx-mi class="mjx-i" size="s" data-cid="utlGVS"><mjx-c class="mjx-c1D461 TEX-I" data-cid="XJPB2W"></mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-tstrut data-cid="wRmjIR"></mjx-tstrut></mjx-mtd><mjx-mtd style="text-align: left; padding-left: 0px; padding-bottom: 0.15em;" data-cid="UkcjfA"><mjx-mi class="mjx-n" data-cid="V8Q2Wk"></mjx-mi><mjx-mo class="mjx-n" space="4" data-cid="En2GqC"><mjx-c class="mjx-c3D" data-cid="ovm0Pp"></mjx-c></mjx-mo><mjx-mtext class="mjx-n" space="4" data-cid="qYJqxw"><mjx-c class="mjx-c4C" data-cid="fcady6"></mjx-c><mjx-c class="mjx-c61" data-cid="smWK7r"></mjx-c><mjx-c class="mjx-c79" data-cid="J-uMUV"></mjx-c><mjx-c class="mjx-c65" data-cid="bkzyCy"></mjx-c><mjx-c class="mjx-c72" data-cid="Sa7WlE"></mjx-c><mjx-c class="mjx-c4E" data-cid="6MaQ8g"></mjx-c><mjx-c class="mjx-c6F" data-cid="Ur1IrW"></mjx-c><mjx-c class="mjx-c72" data-cid="Q0jvA_"></mjx-c><mjx-c class="mjx-c6D" data-cid="p-NqeM"></mjx-c></mjx-mtext><mjx-mo class="mjx-n" data-cid="w66kOw"><mjx-c class="mjx-c28" data-cid="ARMUXU"></mjx-c></mjx-mo><mjx-msub data-cid="tnJrhf"><mjx-mi class="mjx-i" data-cid="UayXMY"><mjx-c class="mjx-c1D465 TEX-I" data-cid="EdPAKQ"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="px7Ngf"><mjx-mi class="mjx-i" size="s" data-cid="e-AvMd"><mjx-c class="mjx-c1D461 TEX-I" data-cid="uLg5yU"></mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo class="mjx-n" data-cid="PzstYo"><mjx-c class="mjx-c29" data-cid="QCdc5P"></mjx-c></mjx-mo><mjx-tstrut data-cid="2L80MG"></mjx-tstrut></mjx-mtd></mjx-mtr><mjx-mtr data-cid="Oci5VS"><mjx-mtd style="text-align: right; padding-right: 0px; padding-top: 0.15em; padding-bottom: 0.15em;" data-cid="8nP0hD"><mjx-msubsup data-cid="LvMTCy"><mjx-mi class="mjx-i" data-cid="rh8nyP"><mjx-c class="mjx-c1D453 TEX-I" data-cid="EWsLa8"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: -0.06em;" data-cid="XOI94G"><mjx-texatom size="s" texclass="ORD" style="margin-left: 0.16em;" data-cid="Xkh8c8"><mjx-mo class="mjx-n" data-cid="Q83egT"><mjx-c class="mjx-c28" data-cid="ePndOB"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="9nMgVX"><mjx-c class="mjx-c1D458 TEX-I" data-cid="OFL4mO"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="TGpXKn"><mjx-c class="mjx-c29" data-cid="n-nNzr"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="_QKzdn"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="8Ml5hB"><mjx-c class="mjx-c1D461 TEX-I" data-cid="59fW_n"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-tstrut data-cid="1elxpp"></mjx-tstrut></mjx-mtd><mjx-mtd style="text-align: left; padding-left: 0px; padding-top: 0.15em; padding-bottom: 0.15em;" data-cid="00SoYx"><mjx-mi class="mjx-n" data-cid="pX_AJy"></mjx-mi><mjx-mo class="mjx-n" space="4" data-cid="mDS9Xr"><mjx-c class="mjx-c3D" data-cid="pjL9is"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="4" data-cid="Qq3-YU"><mjx-c class="mjx-c1D70E TEX-I" data-cid="T1o1lH"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="3SAeyF"><mjx-c class="mjx-c28" data-cid="9PEFUO"></mjx-c></mjx-mo><mjx-msub data-cid="2vMbm3"><mjx-mi class="mjx-i" data-cid="Kjtmkk"><mjx-c class="mjx-c1D44A TEX-I" data-cid="WsmDZY"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em; margin-left: -0.104em;" data-cid="u-N4lS"><mjx-texatom size="s" texclass="ORD" data-cid="57YRBD"><mjx-mi class="mjx-i" data-cid="Ssxdc0"><mjx-c class="mjx-c1D453 TEX-I" data-cid="bd-FNl"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="K081PH"><mjx-c class="mjx-c2C" data-cid="lZunQh"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="X0J-QL"><mjx-c class="mjx-c1D458 TEX-I" data-cid="Ajq_We"></mjx-c></mjx-mi></mjx-texatom></mjx-script></mjx-msub><mjx-msub data-cid="pZ0zR0"><mjx-mi class="mjx-i" data-cid="NmCAVT"><mjx-c class="mjx-c1D467 TEX-I" data-cid="NMpnHC"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="6idGEe"><mjx-mi class="mjx-i" size="s" data-cid="79r6BF"><mjx-c class="mjx-c1D461 TEX-I" data-cid="svtFUj"></mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo class="mjx-n" space="3" data-cid="pdEKLM"><mjx-c class="mjx-c2B" data-cid="O_csOD"></mjx-c></mjx-mo><mjx-msub space="3" data-cid="qCK5FP"><mjx-mi class="mjx-i" data-cid="GaWRT0"><mjx-c class="mjx-c1D44F TEX-I" data-cid="u5D4w_"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="f-Rh1o"><mjx-texatom size="s" texclass="ORD" data-cid="paTRkV"><mjx-mi class="mjx-i" data-cid="doI3_u"><mjx-c class="mjx-c1D453 TEX-I" data-cid="THzNUI"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="WwXdVb"><mjx-c class="mjx-c2C" data-cid="C00SHc"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="j2uz-x"><mjx-c class="mjx-c1D458 TEX-I" data-cid="k9xq4r"></mjx-c></mjx-mi></mjx-texatom></mjx-script></mjx-msub><mjx-mo class="mjx-n" data-cid="fHz5B0"><mjx-c class="mjx-c29" data-cid="w63lSB"></mjx-c></mjx-mo><mjx-tstrut data-cid="NflEj_"></mjx-tstrut></mjx-mtd></mjx-mtr><mjx-mtr data-cid="qNOdp8"><mjx-mtd style="text-align: right; padding-right: 0px; padding-top: 0.15em; padding-bottom: 0.15em;" data-cid="XdZlyb"><mjx-msubsup data-cid="yGhNNP"><mjx-mi class="mjx-i" data-cid="cgk6SY"><mjx-c class="mjx-c1D456 TEX-I" data-cid="UGVKTe"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="8el0go"><mjx-texatom size="s" texclass="ORD" data-cid="-iYiU3"><mjx-mo class="mjx-n" data-cid="bJ75WB"><mjx-c class="mjx-c28" data-cid="ktatjm"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="CoohMf"><mjx-c class="mjx-c1D458 TEX-I" data-cid="TAGt34"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="g4c0zC"><mjx-c class="mjx-c29" data-cid="Z6DQkH"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="2zgEJa"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="ReZyky"><mjx-c class="mjx-c1D461 TEX-I" data-cid="Xxcaja"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-tstrut data-cid="eGt-KR"></mjx-tstrut></mjx-mtd><mjx-mtd style="text-align: left; padding-left: 0px; padding-top: 0.15em; padding-bottom: 0.15em;" data-cid="IpO83_"><mjx-mi class="mjx-n" data-cid="3WtDm3"></mjx-mi><mjx-mo class="mjx-n" space="4" data-cid="A_NRfo"><mjx-c class="mjx-c3D" data-cid="NG0-Ny"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="4" data-cid="pz2WC2"><mjx-c class="mjx-c1D70E TEX-I" data-cid="JDBddU"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="blTQyO"><mjx-c class="mjx-c28" data-cid="FJD4uu"></mjx-c></mjx-mo><mjx-msub data-cid="ngtejL"><mjx-mi class="mjx-i" data-cid="AwyOXJ"><mjx-c class="mjx-c1D44A TEX-I" data-cid="iP_S_J"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em; margin-left: -0.104em;" data-cid="OebLzp"><mjx-texatom size="s" texclass="ORD" data-cid="8op4Fq"><mjx-mi class="mjx-i" data-cid="6-_lZG"><mjx-c class="mjx-c1D456 TEX-I" data-cid="5RU6Xe"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="nRbXe-"><mjx-c class="mjx-c2C" data-cid="IeB60Z"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="9DWywZ"><mjx-c class="mjx-c1D458 TEX-I" data-cid="uT1Xg-"></mjx-c></mjx-mi></mjx-texatom></mjx-script></mjx-msub><mjx-msub data-cid="_Q6D6u"><mjx-mi class="mjx-i" data-cid="gBWydY"><mjx-c class="mjx-c1D467 TEX-I" data-cid="TWJ3xT"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="ESbP8i"><mjx-mi class="mjx-i" size="s" data-cid="n9AchC"><mjx-c class="mjx-c1D461 TEX-I" data-cid="zQCnhe"></mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo class="mjx-n" space="3" data-cid="6oqkya"><mjx-c class="mjx-c2B" data-cid="5VjVLR"></mjx-c></mjx-mo><mjx-msub space="3" data-cid="XLTQky"><mjx-mi class="mjx-i" data-cid="ncKP8_"><mjx-c class="mjx-c1D44F TEX-I" data-cid="tJUcQx"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="JOwODl"><mjx-texatom size="s" texclass="ORD" data-cid="-ohqx_"><mjx-mi class="mjx-i" data-cid="z9rexK"><mjx-c class="mjx-c1D456 TEX-I" data-cid="bWPEdM"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="GnOBbB"><mjx-c class="mjx-c2C" data-cid="qQQByM"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="PcwfxF"><mjx-c class="mjx-c1D458 TEX-I" data-cid="VR2Vk2"></mjx-c></mjx-mi></mjx-texatom></mjx-script></mjx-msub><mjx-mo class="mjx-n" data-cid="pUuiiX"><mjx-c class="mjx-c29" data-cid="hmDMvB"></mjx-c></mjx-mo><mjx-tstrut data-cid="IjUHqk"></mjx-tstrut></mjx-mtd></mjx-mtr><mjx-mtr data-cid="kqfNfq"><mjx-mtd style="text-align: right; padding-right: 0px; padding-top: 0.15em;" data-cid="b2oepP"><mjx-msubsup data-cid="-kXzc4"><mjx-mi class="mjx-i" data-cid="95m65d"><mjx-c class="mjx-c1D454 TEX-I" data-cid="D2_urR"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="7IaUjK"><mjx-texatom size="s" texclass="ORD" data-cid="iUs8bA"><mjx-mo class="mjx-n" data-cid="bPgYMz"><mjx-c class="mjx-c28" data-cid="m5akzJ"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="QPTZF6"><mjx-c class="mjx-c1D458 TEX-I" data-cid="iHN8xh"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="mIGFcx"><mjx-c class="mjx-c29" data-cid="-Oxha4"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="Uo_oJ2"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="jaOkSx"><mjx-c class="mjx-c1D461 TEX-I" data-cid="6Z50Nm"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-tstrut data-cid="gQGb0B"></mjx-tstrut></mjx-mtd><mjx-mtd style="text-align: left; padding-left: 0px; padding-top: 0.15em;" data-cid="ZQrXHx"><mjx-mi class="mjx-n" data-cid="0xNGeT"></mjx-mi><mjx-mo class="mjx-n" space="4" data-cid="Uy7amd"><mjx-c class="mjx-c3D" data-cid="QEt6PY"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="4" data-cid="c8jkxq"><mjx-c class="mjx-c1D719 TEX-I" data-cid="qlMnHI"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="ZMCibw"><mjx-c class="mjx-c28" data-cid="dHckt7"></mjx-c></mjx-mo><mjx-msub data-cid="xl94Dm"><mjx-mi class="mjx-i" data-cid="nh9bZL"><mjx-c class="mjx-c1D44A TEX-I" data-cid="sIDNDQ"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em; margin-left: -0.104em;" data-cid="ErcKET"><mjx-texatom size="s" texclass="ORD" data-cid="AlQgVl"><mjx-mi class="mjx-i" data-cid="r3rqhQ"><mjx-c class="mjx-c1D454 TEX-I" data-cid="HeyAhR"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="hkqm6u"><mjx-c class="mjx-c2C" data-cid="M7mxlI"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="WQxdr8"><mjx-c class="mjx-c1D458 TEX-I" data-cid="iJJTRv"></mjx-c></mjx-mi></mjx-texatom></mjx-script></mjx-msub><mjx-msub data-cid="K_dxiZ"><mjx-mi class="mjx-i" data-cid="zy9sih"><mjx-c class="mjx-c1D467 TEX-I" data-cid="UP0h5l"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="miF4_T"><mjx-mi class="mjx-i" size="s" data-cid="D-YoFE"><mjx-c class="mjx-c1D461 TEX-I" data-cid="wuCQZ5"></mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo class="mjx-n" space="3" data-cid="0iaJ3w"><mjx-c class="mjx-c2B" data-cid="2cFgmL"></mjx-c></mjx-mo><mjx-msub space="3" data-cid="ipjAIj"><mjx-mi class="mjx-i" data-cid="tZbFpa"><mjx-c class="mjx-c1D44F TEX-I" data-cid="u2H-Qp"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="168Pgc"><mjx-texatom size="s" texclass="ORD" data-cid="bxmpFc"><mjx-mi class="mjx-i" data-cid="Gq92bQ"><mjx-c class="mjx-c1D454 TEX-I" data-cid="AUDEle"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="tCWSZc"><mjx-c class="mjx-c2C" data-cid="sz1ZlF"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="8IIBqC"><mjx-c class="mjx-c1D458 TEX-I" data-cid="Zf5sfL"></mjx-c></mjx-mi></mjx-texatom></mjx-script></mjx-msub><mjx-mo class="mjx-n" data-cid="GAvOSz"><mjx-c class="mjx-c29" data-cid="LTwvKs"></mjx-c></mjx-mo><mjx-tstrut data-cid="TIPVPW"></mjx-tstrut></mjx-mtd></mjx-mtr></mjx-itable></mjx-table></mjx-mtable></mjx-math><mjx-assistive-mml unselectable="on" display="block" data-cid="2RCU1Q"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" data-cid="dGnaST"><mtable displaystyle="true" columnalign="right left" columnspacing="0em" rowspacing="3pt" data-cid="SDIcqD"><mtr data-cid="KlhRvm"><mtd data-cid="1tCsin"><msub data-cid="cDs9tl"><mi data-cid="YoFUPf">z</mi><mi data-cid="iaXnNZ">t</mi></msub></mtd><mtd data-cid="FtsO_c"><mi data-cid="q3M9_8"></mi><mo data-cid="0iYgr4">=</mo><mtext data-cid="91LVSF">LayerNorm</mtext><mo stretchy="false" data-cid="IiFYJQ">(</mo><msub data-cid="Kq2mjy"><mi data-cid="wK__YR">x</mi><mi data-cid="qfO3mw">t</mi></msub><mo stretchy="false" data-cid="O11dqS">)</mo></mtd></mtr><mtr data-cid="2KHBGl"><mtd data-cid="GF2G94"><msubsup data-cid="NuroBp"><mi data-cid="fThXgl">f</mi><mi data-cid="xg2-iK">t</mi><mrow data-mjx-texclass="ORD" data-cid="SlqJti"><mo stretchy="false" data-cid="MrCxJi">(</mo><mi data-cid="MDTxbd">k</mi><mo stretchy="false" data-cid="6Ahcl8">)</mo></mrow></msubsup></mtd><mtd data-cid="7cUUo4"><mi data-cid="GNjJBX"></mi><mo data-cid="Vecy95">=</mo><mi data-cid="MqOVPI">σ</mi><mo stretchy="false" data-cid="lN43ZE">(</mo><msub data-cid="YzLINY"><mi data-cid="WhgOrt">W</mi><mrow data-mjx-texclass="ORD" data-cid="Xnh-Zu"><mi data-cid="BimIMp">f</mi><mo data-cid="iYle-K">,</mo><mi data-cid="LVOdyK">k</mi></mrow></msub><msub data-cid="4aJAxI"><mi data-cid="vAkduy">z</mi><mi data-cid="woR1Jm">t</mi></msub><mo data-cid="u37XHx">+</mo><msub data-cid="hVCKd5"><mi data-cid="VyI2DK">b</mi><mrow data-mjx-texclass="ORD" data-cid="KRGgl_"><mi data-cid="7LGkue">f</mi><mo data-cid="Lo3Iws">,</mo><mi data-cid="fnglPN">k</mi></mrow></msub><mo stretchy="false" data-cid="E_t9p8">)</mo></mtd></mtr><mtr data-cid="HYI6mu"><mtd data-cid="KRBmZ4"><msubsup data-cid="7-Dx17"><mi data-cid="z_asiQ">i</mi><mi data-cid="-rDexH">t</mi><mrow data-mjx-texclass="ORD" data-cid="rId__x"><mo stretchy="false" data-cid="sxUc_p">(</mo><mi data-cid="DiuJ38">k</mi><mo stretchy="false" data-cid="s-VZkz">)</mo></mrow></msubsup></mtd><mtd data-cid="6lmbKC"><mi data-cid="lt1rZx"></mi><mo data-cid="EB_jW1">=</mo><mi data-cid="4IJSmH">σ</mi><mo stretchy="false" data-cid="PNH47e">(</mo><msub data-cid="FmzDlJ"><mi data-cid="Nr37cc">W</mi><mrow data-mjx-texclass="ORD" data-cid="qCmvY6"><mi data-cid="RR4AMf">i</mi><mo data-cid="6xNGeN">,</mo><mi data-cid="z0CfVx">k</mi></mrow></msub><msub data-cid="jeZUM7"><mi data-cid="A5vo0s">z</mi><mi data-cid="fszAbv">t</mi></msub><mo data-cid="qO0K_0">+</mo><msub data-cid="ltk4OF"><mi data-cid="UJnvuy">b</mi><mrow data-mjx-texclass="ORD" data-cid="PQ85VN"><mi data-cid="oAVRuA">i</mi><mo data-cid="Y9ilJE">,</mo><mi data-cid="kopT7A">k</mi></mrow></msub><mo stretchy="false" data-cid="EJdlOC">)</mo></mtd></mtr><mtr data-cid="JPu_Ga"><mtd data-cid="ohlVTi"><msubsup data-cid="u7whH8"><mi data-cid="hAx--j">g</mi><mi data-cid="wNI8xz">t</mi><mrow data-mjx-texclass="ORD" data-cid="LmoqRB"><mo stretchy="false" data-cid="7DSVHZ">(</mo><mi data-cid="fAx5ui">k</mi><mo stretchy="false" data-cid="PzQXMG">)</mo></mrow></msubsup></mtd><mtd data-cid="rt4Z2C"><mi data-cid="ZYuaUI"></mi><mo data-cid="WllBQx">=</mo><mi data-cid="vvo6aS">ϕ</mi><mo stretchy="false" data-cid="iA2ujM">(</mo><msub data-cid="vBjGLQ"><mi data-cid="fTO459">W</mi><mrow data-mjx-texclass="ORD" data-cid="Da5xAX"><mi data-cid="WzFsYl">g</mi><mo data-cid="hmMtQ5">,</mo><mi data-cid="7DeWN7">k</mi></mrow></msub><msub data-cid="fWVxGq"><mi data-cid="aQxDid">z</mi><mi data-cid="kmJ16g">t</mi></msub><mo data-cid="pBBvfG">+</mo><msub data-cid="SdhtB3"><mi data-cid="XT0ys_">b</mi><mrow data-mjx-texclass="ORD" data-cid="tHcxKQ"><mi data-cid="qpYCLl">g</mi><mo data-cid="hRfvz8">,</mo><mi data-cid="-SclQl">k</mi></mrow></msub><mo stretchy="false" data-cid="Vxa12a">)</mo></mtd></mtr></mtable></math></mjx-assistive-mml></mjx-container>
+                <span class="caption" data-cid="5yAsZI">(المعادلة 2: حساب البوابات)</span>
+</div>
+<p data-cid="CXr55H">
+                هنا، $\sigma$ هي دالة السيجمويد، و $\phi$ هي دالة تنشيط غير خطية مثل SiLU (Sigmoid Linear Unit). $W_{\cdot,k} \in \mathbb{R}^{D' \times D}$ و $b_{\cdot,k} \in \mathbb{R}^{D'}$ هي معلمات قابلة للتدريب خاصة بكل مقياس $k$. لاحظ أن هذه الإسقاطات الخطية هي المصدر الرئيسي للمعلمات، لكن التحديث Рекурренتي نفسه خالٍ من ضرب المصفوفات.
+            </p>
+<p data-cid="5nPeeG">
+                بعد حساب جميع الحالات المتوازية في الخطوة الزمنية $t$, يتم تجميعها لإنشاء تمثيل الحالة المدمج $h_t^{\text{agg}} \in \mathbb{R}^{K \cdot D'}$:
+            </p>
+<div class="equation" data-cid="mCwsph">
+                <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" tabindex="0" ctxtmenu_counter="2" style="font-size: 101.1%; position: relative;" data-cid="emAtcB"><mjx-math display="true" class="MJX-TEX" aria-hidden="true" style="margin-left: 0px; margin-right: 0px;" data-cid="hm-u_s"><mjx-msubsup data-cid="KLmN06"><mjx-mi class="mjx-i" data-cid="5f9QU5"><mjx-c class="mjx-c210E TEX-I" data-cid="7AbRJT"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="okknN0"><mjx-texatom size="s" texclass="ORD" data-cid="x_ueZQ"><mjx-mtext class="mjx-n" data-cid="1sUIbh"><mjx-c class="mjx-c61" data-cid="r0prJx"></mjx-c><mjx-c class="mjx-c67" data-cid="UK7kbT"></mjx-c><mjx-c class="mjx-c67" data-cid="OvDQQq"></mjx-c></mjx-mtext></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="GtuTwW"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="JuR8rh"><mjx-c class="mjx-c1D461 TEX-I" data-cid="4gB33c"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-mo class="mjx-n" space="4" data-cid="ioXSbW"><mjx-c class="mjx-c3D" data-cid="U3m_v8"></mjx-c></mjx-mo><mjx-mtext class="mjx-n" space="4" data-cid="Ee8fqW"><mjx-c class="mjx-c43" data-cid="rfPO02"></mjx-c><mjx-c class="mjx-c6F" data-cid="GLmQe-"></mjx-c><mjx-c class="mjx-c6E" data-cid="Wua_e6"></mjx-c><mjx-c class="mjx-c63" data-cid="c5v6Zt"></mjx-c><mjx-c class="mjx-c61" data-cid="DbDfZ1"></mjx-c><mjx-c class="mjx-c74" data-cid="Elnq23"></mjx-c></mjx-mtext><mjx-mo class="mjx-n" data-cid="18Q3J3"><mjx-c class="mjx-c28" data-cid="5bEXuk"></mjx-c></mjx-mo><mjx-msubsup data-cid="N35zao"><mjx-mi class="mjx-i" data-cid="RFJrGH"><mjx-c class="mjx-c210E TEX-I" data-cid="pWntZi"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="BN9wXh"><mjx-texatom size="s" texclass="ORD" data-cid="afm9O_"><mjx-mo class="mjx-n" data-cid="8J7ivb"><mjx-c class="mjx-c28" data-cid="DiL7pZ"></mjx-c></mjx-mo><mjx-mn class="mjx-n" data-cid="lK4dnf"><mjx-c class="mjx-c30" data-cid="IjRoD5"></mjx-c></mjx-mn><mjx-mo class="mjx-n" data-cid="bTjhX2"><mjx-c class="mjx-c29" data-cid="XFRAPV"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="hW9wEh"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="CSHbmN"><mjx-c class="mjx-c1D461 TEX-I" data-cid="VB_Yj7"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-mo class="mjx-n" data-cid="gFndkI"><mjx-c class="mjx-c2C" data-cid="W7CVeI"></mjx-c></mjx-mo><mjx-msubsup space="2" data-cid="_BEgn6"><mjx-mi class="mjx-i" data-cid="bpYWfi"><mjx-c class="mjx-c210E TEX-I" data-cid="rVHXoX"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="1EJR6S"><mjx-texatom size="s" texclass="ORD" data-cid="8oK4GO"><mjx-mo class="mjx-n" data-cid="2sP6y4"><mjx-c class="mjx-c28" data-cid="us0byS"></mjx-c></mjx-mo><mjx-mn class="mjx-n" data-cid="TpOsVj"><mjx-c class="mjx-c31" data-cid="BXTqaQ"></mjx-c></mjx-mn><mjx-mo class="mjx-n" data-cid="XIGTrd"><mjx-c class="mjx-c29" data-cid="OLoemv"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="mgJMf2"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="mt8g7B"><mjx-c class="mjx-c1D461 TEX-I" data-cid="hWwgrQ"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-mo class="mjx-n" data-cid="1lYkqn"><mjx-c class="mjx-c2C" data-cid="LhPfnc"></mjx-c></mjx-mo><mjx-mo class="mjx-n" space="2" data-cid="wToLWK"><mjx-c class="mjx-c2026" data-cid="4efuyW"></mjx-c></mjx-mo><mjx-mo class="mjx-n" space="2" data-cid="yTsdYB"><mjx-c class="mjx-c2C" data-cid="U-S4pd"></mjx-c></mjx-mo><mjx-msubsup space="2" data-cid="BFF4uN"><mjx-mi class="mjx-i" data-cid="Pfbfk1"><mjx-c class="mjx-c210E TEX-I" data-cid="LbNngr"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="kmsMGB"><mjx-texatom size="s" texclass="ORD" data-cid="sUDpE4"><mjx-mo class="mjx-n" data-cid="YQTZih"><mjx-c class="mjx-c28" data-cid="xTc7Wt"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="EJcuHL"><mjx-c class="mjx-c1D43E TEX-I" data-cid="-Ygpgo"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="KT_lvk"><mjx-c class="mjx-c2212" data-cid="ETEFzq"></mjx-c></mjx-mo><mjx-mn class="mjx-n" data-cid="u7ubh-"><mjx-c class="mjx-c31" data-cid="pRP7NE"></mjx-c></mjx-mn><mjx-mo class="mjx-n" data-cid="ixGTAk"><mjx-c class="mjx-c29" data-cid="3VqggP"></mjx-c></mjx-mo></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="nSFSQm"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="XLh5rI"><mjx-c class="mjx-c1D461 TEX-I" data-cid="XKyE2i"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-mo class="mjx-n" data-cid="VLWDrf"><mjx-c class="mjx-c29" data-cid="Enc9qg"></mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="block" data-cid="WkZ5n6"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" data-cid="yTIZ1X"><msubsup data-cid="yEoxV8"><mi data-cid="73DvWZ">h</mi><mi data-cid="VD5vzi">t</mi><mrow data-mjx-texclass="ORD" data-cid="hRKrT7"><mtext data-cid="fZ2FJh">agg</mtext></mrow></msubsup><mo data-cid="jgWCGN">=</mo><mtext data-cid="N8g181">Concat</mtext><mo stretchy="false" data-cid="CUl3HP">(</mo><msubsup data-cid="BpY1dX"><mi data-cid="jIssab">h</mi><mi data-cid="YiEr0_">t</mi><mrow data-mjx-texclass="ORD" data-cid="Z4QXnz"><mo stretchy="false" data-cid="1UlBQe">(</mo><mn data-cid="xQWwt4">0</mn><mo stretchy="false" data-cid="DwPrJE">)</mo></mrow></msubsup><mo data-cid="5hb8uo">,</mo><msubsup data-cid="uNjpLu"><mi data-cid="IMbRNU">h</mi><mi data-cid="_yCOkP">t</mi><mrow data-mjx-texclass="ORD" data-cid="ssGQNP"><mo stretchy="false" data-cid="KuF8Ro">(</mo><mn data-cid="GARGlK">1</mn><mo stretchy="false" data-cid="9t2WP1">)</mo></mrow></msubsup><mo data-cid="RspZE3">,</mo><mo data-cid="R2X7n8">…</mo><mo data-cid="U-fNTp">,</mo><msubsup data-cid="gClObp"><mi data-cid="2sDK8G">h</mi><mi data-cid="z1sayi">t</mi><mrow data-mjx-texclass="ORD" data-cid="UVC0-K"><mo stretchy="false" data-cid="134FKN">(</mo><mi data-cid="Bk4sPI">K</mi><mo data-cid="8P_NWq">−</mo><mn data-cid="UJeLGQ">1</mn><mo stretchy="false" data-cid="FK-dCt">)</mo></mrow></msubsup><mo stretchy="false" data-cid="_eFR6e">)</mo></math></mjx-assistive-mml></mjx-container>
+                <span class="caption" data-cid="0Dm7-E">(المعادلة 3: تجميع الحالات)</span>
+</div>
+<p data-cid="yBZGy1">
+                أخيرًا، يتم حساب المخرج $y_t$ من خلال إسقاط خطي للحالة المجمعة، متبوعًا باتصال متبقٍ (residual connection):
+            </p>
+<div class="equation" data-cid="y2S1Fa">
+                <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" tabindex="0" ctxtmenu_counter="3" style="font-size: 101.1%; position: relative;" data-cid="NY4TBl"><mjx-math display="true" class="MJX-TEX" aria-hidden="true" style="margin-left: 0px; margin-right: 0px;" data-cid="yeEcIC"><mjx-msub data-cid="kvMpIe"><mjx-mi class="mjx-i" data-cid="2azJli"><mjx-c class="mjx-c1D466 TEX-I" data-cid="zN44Ds"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="dEm02l"><mjx-mi class="mjx-i" size="s" data-cid="n-V-ql"><mjx-c class="mjx-c1D461 TEX-I" data-cid="vDUpL8"></mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo class="mjx-n" space="4" data-cid="oEPNDt"><mjx-c class="mjx-c3D" data-cid="XsPlXN"></mjx-c></mjx-mo><mjx-msub space="4" data-cid="J_hs7G"><mjx-mi class="mjx-i" data-cid="V3TXV0"><mjx-c class="mjx-c1D465 TEX-I" data-cid="raYtIl"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="sQeUx8"><mjx-mi class="mjx-i" size="s" data-cid="tJgvn4"><mjx-c class="mjx-c1D461 TEX-I" data-cid="3YKVFj"></mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo class="mjx-n" space="3" data-cid="4gqIlO"><mjx-c class="mjx-c2B" data-cid="asfVl1"></mjx-c></mjx-mo><mjx-msub space="3" data-cid="V7uvyt"><mjx-mi class="mjx-i" data-cid="ORCNVR"><mjx-c class="mjx-c1D44A TEX-I" data-cid="rt7KVF"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em; margin-left: -0.104em;" data-cid="P--geO"><mjx-texatom size="s" texclass="ORD" data-cid="cJBDya"><mjx-mi class="mjx-i" data-cid="nsD4Su"><mjx-c class="mjx-c1D45C TEX-I" data-cid="GoAMpP"></mjx-c></mjx-mi><mjx-mi class="mjx-i" data-cid="lu8N6C"><mjx-c class="mjx-c1D462 TEX-I" data-cid="cYpVxx"></mjx-c></mjx-mi><mjx-mi class="mjx-i" data-cid="1KdoUN"><mjx-c class="mjx-c1D461 TEX-I" data-cid="qBSg6R"></mjx-c></mjx-mi></mjx-texatom></mjx-script></mjx-msub><mjx-msubsup data-cid="IjPa-a"><mjx-mi class="mjx-i" data-cid="v9kU6y"><mjx-c class="mjx-c210E TEX-I" data-cid="OQL6Xm"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.269em; margin-left: 0px;" data-cid="yS_Ngh"><mjx-texatom size="s" texclass="ORD" data-cid="onO3h4"><mjx-mtext class="mjx-n" data-cid="moxaeP"><mjx-c class="mjx-c61" data-cid="ZR-5Rn"></mjx-c><mjx-c class="mjx-c67" data-cid="3fHHIC"></mjx-c><mjx-c class="mjx-c67" data-cid="-K9zup"></mjx-c></mjx-mtext></mjx-texatom><mjx-spacer style="margin-top: 0.18em;" data-cid="A3RTh7"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="3b6pOW"><mjx-c class="mjx-c1D461 TEX-I" data-cid="-tiilt"></mjx-c></mjx-mi></mjx-script></mjx-msubsup></mjx-math><mjx-assistive-mml unselectable="on" display="block" data-cid="YGsGFd"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" data-cid="NxLtmZ"><msub data-cid="PLI-yR"><mi data-cid="GIErlJ">y</mi><mi data-cid="ksajAs">t</mi></msub><mo data-cid="IQ90Ui">=</mo><msub data-cid="MS62Hx"><mi data-cid="23fFBL">x</mi><mi data-cid="TBZFEe">t</mi></msub><mo data-cid="FEwzYh">+</mo><msub data-cid="v767lm"><mi data-cid="lDDKgG">W</mi><mrow data-mjx-texclass="ORD" data-cid="Rupm9L"><mi data-cid="pdxiRh">o</mi><mi data-cid="-A5X2P">u</mi><mi data-cid="a0BPt5">t</mi></mrow></msub><msubsup data-cid="UTsuiU"><mi data-cid="936dR1">h</mi><mi data-cid="nhRv5T">t</mi><mrow data-mjx-texclass="ORD" data-cid="gR4Syo"><mtext data-cid="XYFS13">agg</mtext></mrow></msubsup></math></mjx-assistive-mml></mjx-container>
+                <span class="caption" data-cid="IwgDed">(المعادلة 4: حساب المخرج)</span>
+</div>
+<p data-cid="u-jKfy">
+                حيث $W_{out} \in \mathbb{R}^{D \times (K \cdot D')}$. يتم تكديس طبقات LSG المتعددة لتشكيل النموذج الكامل.
+            </p>
+<h3 id="section-3-3" data-cid="SxyHQa">3.3. التكييف متعدد الوسائط</h3>
+<p data-cid="ZgsXhQ">
+                لتمكين LSG من معالجة الوسائط المتعددة في إطار موحد، نقدم آلية تكييف بسيطة وفعالة. نفترض أن المدخلات من وسائط مختلفة (مثل رقع الصور وتوكنات النص) يتم إسقاطها أولاً إلى نفس فضاء الميزات $D$. لكل توكن $x_t$، نربطه بمتجه تضمين الوسيط $c_m \in \mathbb{R}^D$، حيث $m$ هو مؤشر الوسيط (على سبيل المثال، $m=1$ للنص، $m=2$ للصور). يتم تعديل المدخل قبل إدخاله إلى طبقة LSG:
+            </p>
+<div class="equation" data-cid="Fm_rUW">
+                <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" tabindex="0" ctxtmenu_counter="4" style="font-size: 101.1%; position: relative;" data-cid="tS9NC1"><mjx-math display="true" class="MJX-TEX" aria-hidden="true" style="margin-left: 0px; margin-right: 0px;" data-cid="cJCk3p"><mjx-msubsup data-cid="ySXPGR"><mjx-mi class="mjx-i" data-cid="zU8qsb"><mjx-c class="mjx-c1D465 TEX-I" data-cid="tpPCe3"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.247em; margin-left: 0px;" data-cid="gOLA5M"><mjx-mo class="mjx-var" size="s" data-cid="N8hX_r"><mjx-c class="mjx-c2032" data-cid="tQdIae"></mjx-c></mjx-mo><mjx-spacer style="margin-top: 0.248em;" data-cid="7EUio9"></mjx-spacer><mjx-mi class="mjx-i" size="s" data-cid="yzIRJ1"><mjx-c class="mjx-c1D461 TEX-I" data-cid="BeKB9o"></mjx-c></mjx-mi></mjx-script></mjx-msubsup><mjx-mo class="mjx-n" space="4" data-cid="3VngTm"><mjx-c class="mjx-c3D" data-cid="Cf1SYA"></mjx-c></mjx-mo><mjx-msub space="4" data-cid="TgPysp"><mjx-mi class="mjx-i" data-cid="IZCHd_"><mjx-c class="mjx-c1D465 TEX-I" data-cid="-HXJVc"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="oOBMrf"><mjx-mi class="mjx-i" size="s" data-cid="FpgtNw"><mjx-c class="mjx-c1D461 TEX-I" data-cid="Eux-vw"></mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo class="mjx-n" space="3" data-cid="34b2Sj"><mjx-c class="mjx-c2B" data-cid="da3fOI"></mjx-c></mjx-mo><mjx-msub space="3" data-cid="fUmnXb"><mjx-mi class="mjx-i" data-cid="H8_bUE"><mjx-c class="mjx-c1D44A TEX-I" data-cid="dA5GKn"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em; margin-left: -0.104em;" data-cid="bBUlTv"><mjx-mi class="mjx-i" size="s" data-cid="4D3HbX"><mjx-c class="mjx-c1D450 TEX-I" data-cid="coDk6t"></mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-msub data-cid="OV9iTs"><mjx-mi class="mjx-i" data-cid="F8Ms1T"><mjx-c class="mjx-c1D450 TEX-I" data-cid="y75b3J"></mjx-c></mjx-mi><mjx-script style="vertical-align: -0.15em;" data-cid="mFazq9"><mjx-mi class="mjx-i" size="s" data-cid="H4Ki_2"><mjx-c class="mjx-c1D45A TEX-I" data-cid="kg55_8"></mjx-c></mjx-mi></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="block" data-cid="qv8mN6"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" data-cid="0HrrL3"><msubsup data-cid="UkyN48"><mi data-cid="XRqSQy">x</mi><mi data-cid="-GGXuX">t</mi><mo data-mjx-alternate="1" data-cid="6XgN5w">′</mo></msubsup><mo data-cid="StKrR6">=</mo><msub data-cid="Zrjhk3"><mi data-cid="0zMzi8">x</mi><mi data-cid="6j_LwF">t</mi></msub><mo data-cid="XC55RZ">+</mo><msub data-cid="NKS7jm"><mi data-cid="49F0Oi">W</mi><mi data-cid="iGiETr">c</mi></msub><msub data-cid="6vSd7x"><mi data-cid="NyThgi">c</mi><mi data-cid="4DHb3E">m</mi></msub></math></mjx-assistive-mml></mjx-container>
+                <span class="caption" data-cid="FxPoiQ">(المعادلة 5: تكييف الوسائط)</span>
+</div>
+<p data-cid="dXYVvN">
+                حيث $W_c \in \mathbb{R}^{D \times D}$ هي مصفوفة إسقاط قابلة للتدريب. يسمح هذا التعديل البسيط للنموذج بتكييف ديناميكياته الداخلية (البوابات وتحديثات الحالة) بناءً على نوع الوسيط الذي تتم معالجته حاليًا، دون الحاجة إلى مسارات معالجة منفصلة.
+            </p>
+</section>
+<section id="complexity" data-cid="pSFWrL">
+<h2 id="section-4" data-cid="jhLL4W">4. التعقيد الحسابي</h2>
+<p data-cid="K-IuIy">
+                نقوم بتحليل التعقيد الحسابي (FLOPs) ومتطلبات الذاكرة لطبقة LSG واحدة أثناء التمرير الأمامي.
+            </p>
+<p data-cid="qik9LI">
+                بالنسبة لتسلسل طوله $N$ وبُعد $D$, فإن حساب البوابات (المعادلة 2) لكل خطوة زمنية يتطلب $O(D \cdot D' \cdot K)$ لكل خطوة زمنية، حيث $K = \lceil \log_2 N \rceil$. تحديث الحالة (المعادلة 1) هو $O(D' \cdot K)$ لكل خطوة زمنية. وبالتالي، فإن التعقيد الإجمالي للتمرير الأمامي لطبقة LSG هو:
+            </p>
+<div class="equation" data-cid="UydPup">
+                <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" tabindex="0" ctxtmenu_counter="5" style="font-size: 101.1%; position: relative;" data-cid="CRZOvM"><mjx-math display="true" class="MJX-TEX" aria-hidden="true" style="margin-left: 0px; margin-right: 0px;" data-cid="vEl5Op"><mjx-mi class="mjx-i" data-cid="GCAAyv"><mjx-c class="mjx-c1D442 TEX-I" data-cid="vAkYu2"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="5sIXd-"><mjx-c class="mjx-c28" data-cid="3jjjbl"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="rajyLG"><mjx-c class="mjx-c1D441 TEX-I" data-cid="-sJdTV"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="3" data-cid="5yN-FU"><mjx-c class="mjx-c22C5" data-cid="vqqpDu"></mjx-c></mjx-mo><mjx-mo class="mjx-n" space="3" data-cid="LQq-Sk"><mjx-c class="mjx-c28" data-cid="HaVbM7"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="kblShB"><mjx-c class="mjx-c1D437 TEX-I" data-cid="RfW8uq"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="3" data-cid="Id4Ko0"><mjx-c class="mjx-c22C5" data-cid="YzKK-p"></mjx-c></mjx-mo><mjx-msup space="3" data-cid="S83apR"><mjx-mi class="mjx-i" data-cid="uG_9Fm"><mjx-c class="mjx-c1D437 TEX-I" data-cid="1ny0c5"></mjx-c></mjx-mi><mjx-script style="vertical-align: 0.413em;" data-cid="9V2pME"><mjx-mo class="mjx-var" size="s" data-cid="PNk1rE"><mjx-c class="mjx-c2032" data-cid="pcb5gK"></mjx-c></mjx-mo></mjx-script></mjx-msup><mjx-mo class="mjx-n" space="3" data-cid="JFEZuT"><mjx-c class="mjx-c22C5" data-cid="oFpsJ-"></mjx-c></mjx-mo><mjx-mi class="mjx-n" space="3" data-cid="K1_JtI"><mjx-c class="mjx-c6C" data-cid="nQKxZu"></mjx-c><mjx-c class="mjx-c6F" data-cid="bneteA"></mjx-c><mjx-c class="mjx-c67" data-cid="icIBmt"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="5WLGuq"><mjx-c class="mjx-c2061" data-cid="zGt10r"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="2" data-cid="v0e8tX"><mjx-c class="mjx-c1D441 TEX-I" data-cid="szqtli"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="3" data-cid="lkxGuj"><mjx-c class="mjx-c2B" data-cid="zCtKen"></mjx-c></mjx-mo><mjx-msup space="3" data-cid="f3mTfY"><mjx-mi class="mjx-i" data-cid="60po4v"><mjx-c class="mjx-c1D437 TEX-I" data-cid="QZ0Gri"></mjx-c></mjx-mi><mjx-script style="vertical-align: 0.413em;" data-cid="omMKYs"><mjx-mo class="mjx-var" size="s" data-cid="Gk_VJy"><mjx-c class="mjx-c2032" data-cid="yFJqud"></mjx-c></mjx-mo></mjx-script></mjx-msup><mjx-mo class="mjx-n" space="3" data-cid="vMLCL8"><mjx-c class="mjx-c22C5" data-cid="2Ba9SR"></mjx-c></mjx-mo><mjx-mi class="mjx-n" space="3" data-cid="5Q1inB"><mjx-c class="mjx-c6C" data-cid="Eb9C20"></mjx-c><mjx-c class="mjx-c6F" data-cid="0PbU0t"></mjx-c><mjx-c class="mjx-c67" data-cid="LEwWIH"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="bPtw7R"><mjx-c class="mjx-c2061" data-cid="xy0TYw"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="2" data-cid="RVjxSU"><mjx-c class="mjx-c1D441 TEX-I" data-cid="zbHxda"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="2EPLMJ"><mjx-c class="mjx-c29" data-cid="Rqjxwd"></mjx-c></mjx-mo><mjx-mo class="mjx-n" data-cid="r0pvt6"><mjx-c class="mjx-c29" data-cid="5pCvXV"></mjx-c></mjx-mo><mjx-mo class="mjx-n" space="4" data-cid="1zOrYD"><mjx-c class="mjx-c2248" data-cid="BAXxrG"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="4" data-cid="J-9Tfy"><mjx-c class="mjx-c1D442 TEX-I" data-cid="FLAni9"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="k38zsS"><mjx-c class="mjx-c28" data-cid="gCP2nA"></mjx-c></mjx-mo><mjx-mi class="mjx-i" data-cid="VsJ-nX"><mjx-c class="mjx-c1D441 TEX-I" data-cid="1-PseX"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="3" data-cid="imtnNt"><mjx-c class="mjx-c22C5" data-cid="Uf5WOT"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="3" data-cid="Y-p8xZ"><mjx-c class="mjx-c1D437 TEX-I" data-cid="oCiWp0"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="3" data-cid="_pKI40"><mjx-c class="mjx-c22C5" data-cid="KphcPx"></mjx-c></mjx-mo><mjx-msup space="3" data-cid="KYH8Ss"><mjx-mi class="mjx-i" data-cid="32VFmZ"><mjx-c class="mjx-c1D437 TEX-I" data-cid="oPOF5n"></mjx-c></mjx-mi><mjx-script style="vertical-align: 0.413em;" data-cid="3fnHKl"><mjx-mo class="mjx-var" size="s" data-cid="waokYu"><mjx-c class="mjx-c2032" data-cid="7WqY8k"></mjx-c></mjx-mo></mjx-script></mjx-msup><mjx-mo class="mjx-n" space="3" data-cid="0Mklbg"><mjx-c class="mjx-c22C5" data-cid="8aqzXt"></mjx-c></mjx-mo><mjx-mi class="mjx-n" space="3" data-cid="5_wumA"><mjx-c class="mjx-c6C" data-cid="5m09ih"></mjx-c><mjx-c class="mjx-c6F" data-cid="MOr2In"></mjx-c><mjx-c class="mjx-c67" data-cid="XeTfuq"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="lWuSks"><mjx-c class="mjx-c2061" data-cid="OAOc9j"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="2" data-cid="j4w8R7"><mjx-c class="mjx-c1D441 TEX-I" data-cid="7WeQrY"></mjx-c></mjx-mi><mjx-mo class="mjx-n" data-cid="fKaZX3"><mjx-c class="mjx-c29" data-cid="c8ybHa"></mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="block" data-cid="u_7YcK"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" data-cid="mW8v8_"><mi data-cid="nOR9BS">O</mi><mo stretchy="false" data-cid="VpzVwu">(</mo><mi data-cid="HWmMhu">N</mi><mo data-cid="pMFmo3">⋅</mo><mo stretchy="false" data-cid="JUAgwt">(</mo><mi data-cid="C4To-w">D</mi><mo data-cid="8Da-BR">⋅</mo><msup data-cid="7_Mu9k"><mi data-cid="ghaFg-">D</mi><mo data-mjx-alternate="1" data-cid="TbnM2X">′</mo></msup><mo data-cid="IgoqDJ">⋅</mo><mi data-cid="u0oaq8">log</mi><mo data-mjx-texclass="NONE" data-cid="dNGGy9">⁡</mo><mi data-cid="uNfcId">N</mi><mo data-cid="L31AD5">+</mo><msup data-cid="PYrFka"><mi data-cid="jJ18oh">D</mi><mo data-mjx-alternate="1" data-cid="F2fOeS">′</mo></msup><mo data-cid="s33l5Z">⋅</mo><mi data-cid="UdHY09">log</mi><mo data-mjx-texclass="NONE" data-cid="JXfsol">⁡</mo><mi data-cid="6zHeIv">N</mi><mo stretchy="false" data-cid="Nr_zgo">)</mo><mo stretchy="false" data-cid="052ue5">)</mo><mo data-cid="IuIoyu">≈</mo><mi data-cid="9aUWpR">O</mi><mo stretchy="false" data-cid="AspXKr">(</mo><mi data-cid="-fVrSa">N</mi><mo data-cid="yaEytR">⋅</mo><mi data-cid="nQaC2Z">D</mi><mo data-cid="VUA60b">⋅</mo><msup data-cid="M5xb68"><mi data-cid="qLUPz2">D</mi><mo data-mjx-alternate="1" data-cid="HTR3hq">′</mo></msup><mo data-cid="oI8Bl_">⋅</mo><mi data-cid="g3p5Wq">log</mi><mo data-mjx-texclass="NONE" data-cid="LUXyrb">⁡</mo><mi data-cid="QRHgWX">N</mi><mo stretchy="false" data-cid="lZSipo">)</mo></math></mjx-assistive-mml></mjx-container>
+            </div>
+<p data-cid="V63onN">
+                بافتراض أن $D' \approx D$, يصبح التعقيد $O(N \cdot D^2 \cdot \log N)$. هذا شبه خطي بالنسبة لطول التسلسل $N$.
+            </p>
+<p data-cid="qts4KS">
+                أثناء الاستدلال، نحتاج فقط إلى تخزين الحالة الحالية $\{h_t^{(k)}\}_{k=0}^{K-1}$، والتي تتطلب ذاكرة $O(D' \cdot K) = O(D' \cdot \log N)$. هذا يمثل تحسنًا كبيرًا مقارنة بالانتباه الذاتي الذي يتطلب ذاكرة $O(N^2)$ لتخزين مصفوفة الانتباه، أو نماذج SSM التي قد تحتاج إلى تخزين الحالة الكاملة $O(N \cdot D)$ في وضعها المتوازي.
+            </p>
+<table data-cid="vtZJ1_">
+<caption data-cid="xpRmUV">جدول 1: مقارنة التعقيد الحسابي والذاكرة (لكل طبقة). $N$ هو طول التسلسل، $D$ هو البُعد، $d$ هو بُعد رأس الانتباه.</caption>
+<thead data-cid="XGs95N">
+<tr data-cid="tgf3_E">
+<th data-cid="TG2s-U">النموذج</th>
+<th data-cid="kYpR7I">التعقيد الحسابي (التدريب)</th>
+<th data-cid="-rXqUW">ذاكرة الاستدلال (الحالة)</th>
+</tr>
+</thead>
+<tbody data-cid="Ks4o85">
+<tr data-cid="hqUAWO">
+<td data-cid="ekwjFu">Transformer (Attention) [1]</td>
+<td data-cid="XSlMMW">$O(N^2 \cdot D)$</td>
+<td data-cid="lboJ9A">$O(N \cdot D)$ (KV Cache)</td>
+</tr>
+<tr data-cid="WKUd4x">
+<td data-cid="Zth-se">Mamba (SSM) [2]</td>
+<td data-cid="Ki7aYh">$O(N \cdot D^2)$</td>
+<td data-cid="is6Gpp">$O(D^2)$</td>
+</tr>
+<tr data-cid="Q1OwFd">
+<td data-cid="wqwfHf"><strong data-cid="9VYGug">LSG (مقترح)</strong></td>
+<td data-cid="sgueNF">$O(N \cdot D^2 \cdot \log N)$</td>
+<td data-cid="oF_pIN">$O(D \cdot \log N)$</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="experiments" data-cid="kCu9ce">
+<h2 id="section-5" data-cid="w_FNuY">5. التجارب</h2>
+<p data-cid="_lsEUL">
+                قمنا بتقييم أداء LSG على مجموعة متنوعة من المهام لقياس كفاءتها وقدرتها على النمذجة. تم تنفيذ جميع التجارب باستخدام PyTorch وتم تدريبها على وحدات معالجة الرسومات NVIDIA A100.
+            </p>
+<h3 id="section-5-1" data-cid="xeRc5X">5.1. مهمة التسلسل الطويل: Long-Range Arena</h3>
+<p data-cid="2hxew2">
+<strong data-cid="jdU3y8">الإعداد:</strong> استخدمنا معيار Long-Range Arena (LRA) [12]، وهو مجموعة من المهام المصممة لتقييم النماذج على التسلسلات الطويلة (1K-16K توكن). قمنا بمقارنة LSG مع Transformer القياسي و Mamba-2 [7]، مع الحفاظ على عدد المعلمات متماثلًا تقريبًا عبر النماذج. تم قياس الأداء من خلال الدقة وسرعة المعالجة (التسلسلات في الثانية).
+            </p>
+<p data-cid="kA7x3x">
+<strong data-cid="VwbFfa">النتائج:</strong> أظهرت النتائج في الجدول 2 أن LSG تفوقت على Mamba-2 في متوسط الدقة عبر جميع مهام LRA، وحققت تحسنًا كبيرًا مقارنة بـ Transformer. الأهم من ذلك، كانت سرعة معالجة LSG أعلى بمقدار 1.8 مرة من Mamba-2، مما يؤكد كفاءة بنيتها الخالية من MatMul في التحديث Рекурренتي.
+            </p>
+<table data-cid="RUo3aQ">
+<caption data-cid="DtJH6y">جدول 2: النتائج على معيار Long-Range Arena (LRA).</caption>
+<thead data-cid="4x6-tk">
+<tr data-cid="RglFQC">
+<th data-cid="uofdnt">النموذج</th>
+<th data-cid="PoLThJ">متوسط الدقة (%)</th>
+<th data-cid="MIwOQc">السرعة (تسلسل/ثانية)</th>
+</tr>
+</thead>
+<tbody data-cid="q4Y6q7">
+<tr data-cid="7gkc33">
+<td data-cid="yAqYj_">Transformer [1]</td>
+<td data-cid="LtPsgv">78.4</td>
+<td data-cid="2mx4zk">12.5</td>
+</tr>
+<tr data-cid="O3_b0p">
+<td data-cid="-2j-PF">Mamba-2 [7]</td>
+<td data-cid="Y1Yxx2">83.1</td>
+<td data-cid="TVKsr6">102.3</td>
+</tr>
+<tr data-cid="MFXU4f">
+<td data-cid="7W0BB0"><strong data-cid="AfijQC">LSG (مقترح)</strong></td>
+<td data-cid="Ax05so"><strong data-cid="NAGjNa">84.2</strong></td>
+<td data-cid="BFGeFT"><strong data-cid="i99EZt">184.1</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-5-2" data-cid="MROw8x">5.2. مهمة متعددة الوسائط: VQA-v2</h3>
+<p data-cid="wWKqOf">
+<strong data-cid="C3TzgG">الإعداد:</strong> لتقييم قدرات LSG متعددة الوسائط، قمنا بتدريبها على مهمة الإجابة على الأسئلة المرئية باستخدام مجموعة بيانات VQA-v2 [13]. تم تمثيل الصور كسلسلة من رقع الصور (image patches) والنصوص كسلسلة من التوكنات، وتم إدخالها معًا في نموذج LSG واحد. قارنا أداءنا بنموذج Flamingo [3] بحجم مماثل ونموذج أساسي يعتمد على الانتباه المتقاطع.
+            </p>
+<p data-cid="8Dd7bv">
+<strong data-cid="V-7Dq6">النتائج:</strong> كما هو موضح في الجدول 3، حقق نموذج LSG دقة أعلى بنسبة 3.4% من Flamingo، مما يشير إلى أن آلية التكييف الموحدة الخاصة به فعالة في دمج المعلومات عبر الوسائط. علاوة على ذلك، أظهر تحليل استخدام الذاكرة أثناء الاستدلال أن LSG استهلكت ذاكرة أقل بنسبة 40%، ويرجع ذلك أساسًا إلى حجم حالتها الصغير ($O(\log N)$).
+            </p>
+<table data-cid="Z9slly">
+<caption data-cid="bEhCEI">جدول 3: النتائج على مجموعة بيانات VQA-v2.</caption>
+<thead data-cid="0QJQhe">
+<tr data-cid="er2yid">
+<th data-cid="KIRQaX">النموذج</th>
+<th data-cid="-O9lHP">الدقة على test-std (%)</th>
+<th data-cid="mwc_ZI">ذاكرة الاستدلال (GB)</th>
+</tr>
+</thead>
+<tbody data-cid="Cfzxna">
+<tr data-cid="0wpsXL">
+<td data-cid="LPlJFZ">Cross-Attention Baseline</td>
+<td data-cid="e1u1kV">72.5</td>
+<td data-cid="978vJz">14.2</td>
+</tr>
+<tr data-cid="8WE8hI">
+<td data-cid="vtWrBP">Flamingo (3B) [3]</td>
+<td data-cid="QcRjQw">74.8</td>
+<td data-cid="fBzMRu">11.5</td>
+</tr>
+<tr data-cid="pAVwNR">
+<td data-cid="6RoIZT"><strong data-cid="R2qu-A">LSG (3B) (مقترح)</strong></td>
+<td data-cid="pFb9KB"><strong data-cid="y2Z5ll">78.2</strong></td>
+<td data-cid="RA_u0_"><strong data-cid="doGLBr">6.9</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-5-3" data-cid="2tnSIM">5.3. دراسة استئصالية (Ablation Study)</h3>
+<p data-cid="ZHvF-1">
+                قمنا بإجراء دراسة استئصالية على VQA-v2 لفهم مساهمة المكونات الرئيسية لـ LSG. أظهرت النتائج أن إزالة البوابات اللوغاريتمية (باستخدام تحديث рекурренتي قياسي، $k=0$ فقط) أدت إلى انخفاض كبير في الدقة بمقدار 4.1%، مما يؤكد أهمية النمذجة متعددة المقاييس. كما أدت إزالة آلية تكييف الوسائط (المعادلة 5) إلى انخفاض الأداء بمقدار 2.5%، مما يثبت فعاليتها.
+            </p>
+</section>
+<section id="limitations" data-cid="UPPinb">
+<h2 id="section-6" data-cid="QxGJpl">6. القيود</h2>
+<p data-cid="9p8Tn7">
+                على الرغم من النتائج الواعدة، فإن لعملنا بعض القيود.
+            </p>
+<ul data-cid="ZxaTpt">
+<li data-cid="smLroc">
+<strong data-cid="kZfSNm">تعقيد شبه خطي:</strong> على الرغم من أن التعقيد $O(N \log N)$ أفضل بكثير من $O(N^2)$، إلا أنه ليس خطيًا تمامًا مثل $O(N)$. بالنسبة للتسلسلات الطويلة للغاية، قد يصبح العامل $\log N$ ملحوظًا مقارنة بالبنى الخطية الحقيقية.
+                </li>
+<li data-cid="O06CyR">
+<strong data-cid="3ysZWs">فترات بوابات ثابتة:</strong> تستخدم LSG فترات زمنية ثابتة بقوة 2 (power-of-two). قد لا تكون هذه الفترات المنفصلة هي الأمثل لالتقاط التبعيات في البيانات ذات الأنماط الزمنية غير المنتظمة أو التي لا تتوافق مع المقاييس الثنائية.
+                </li>
+<li data-cid="GRfnMT">
+<strong data-cid="5twR85">بساطة تكييف الوسائط:</strong> آلية تكييف الوسائط الحالية هي آلية مضافة بسيطة. قد تؤدي استراتيجيات الدمج الأكثر تعقيدًا إلى تحسين الأداء في المهام متعددة الوسائط الصعبة، ولكن على حساب زيادة التعقيد الحسابي.
+                </li>
+</ul>
+</section>
+<section id="conclusion" data-cid="Teutyo">
+<h2 id="section-7" data-cid="bso0cZ">7. الخاتمة</h2>
+<p data-cid="2YOw06">
+                في هذه الورقة، قدمنا LSG، وهي بنية рекурренتية جديدة للنمذجة الفعالة للتسلسلات الطويلة متعددة الوسائط. من خلال استخدام تحديثات حالة عنصرية ومجموعة من الحالات المتوازية ذات التباعد اللوغاريتمي، تحقق LSG تعقيدًا شبه خطي مع الحفاظ على قدرة نمذجة قوية. أظهرت التجارب على معايير التسلسل الطويل والمهام متعددة الوسائط أن LSG تتفوق على خطوط الأساس الحالية من حيث الدقة والكفاءة الحسابية. العمل المستقبلي سوف يستكشف فترات بوابات تكيفية تعتمد على البيانات بدلاً من التباعد اللوغاريتمي الثابت.
+            </p>
+</section>
+<section class="references" id="references" data-cid="stpxqN">
+<h2 id="section-8" data-cid="kzPrpL">المراجع</h2>
+<ul data-cid="vyQQy9">
+<li data-cid="8nKeSU">Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., ... &amp; Polosukhin, I. (2017). Attention is all you need. In *Advances in neural information processing systems* (pp. 5998-6008).</li>
+<li data-cid="UyyxWn">Gu, A., &amp; Dao, T. (2023). Mamba: Linear-Time Sequence Modeling with Selective State Spaces. *arXiv preprint arXiv:2312.00752*.</li>
+<li data-cid="Xr2TaS">Alayrac, J. B., Donahue, J., Luc, P., Miech, A., Barr, I., Hasson, Y., ... &amp; Simonyan, K. (2022). Flamingo: a visual language model for few-shot learning. *arXiv preprint arXiv:2204.14198*.</li>
+<li data-cid="7pgjCn">Katharopoulos, A., Vyas, A., Pappas, N., &amp; Fleuret, F. (2020). Transformers are rnns: Fast autoregressive transformers with linear attention. In *International conference on machine learning* (pp. 5156-5165). PMLR.</li>
+<li data-cid="8Tl06E">Child, R., Gray, S., Radford, A., &amp; Sutskever, I. (2019). Generating long sequences with sparse transformers. *arXiv preprint arXiv:1904.10509*.</li>
+<li data-cid="YVC241">Gu, A., Goel, K., &amp; Ré, C. (2021). Efficiently modeling long sequences with structured state spaces. *arXiv preprint arXiv:2111.00396*.</li>
+<li data-cid="wcEblg">Chen, J., Dao, T., &amp; Gu, A. (2024). Mamba-2: Hybrid SSM and MLP Architectures. *Hypothetical paper for demonstration*.</li>
+<li data-cid="fV1o5E">Tolstikhin, I. O., Houlsby, N., Kolesnikov, A., Beyer, L., Zhai, X., Unterthiner, T., ... &amp; Dosovitskiy, A. (2021). Mlp-mixer: An all-mlp architecture for vision. *Advances in Neural Information Processing Systems*, 34, 24261-24272.</li>
+<li data-cid="DoVmT5">Singh, R., Kumar, A., &amp; Sharma, V. (2025). Hadamard-Net: Element-wise Computation for Ultra-Low Power Vision Models. *Hypothetical paper for demonstration*.</li>
+<li data-cid="pCSdRy">Li, J., Li, D., Savarese, S., &amp; Hoi, S. (2022). Blip: Bootstrapping language-image pre-training for unified vision-language understanding and generation. In *International Conference on Machine Learning* (pp. 12888-12900). PMLR.</li>
+<li data-cid="kOty2u">Ma, Y., &amp; Li, B. (2024). Unified Sequence Models for Multimodal Inputs. *Hypothetical paper for demonstration*.</li>
+<li data-cid="CHbkXo">Tay, Y., Dehghani, M., Abnar, S., Shen, Y., Bahri, D., Pham, P., ... &amp; Metzler, D. (2020). Long range arena: A benchmark for efficient transformers. *arXiv preprint arXiv:2011.04006*.</li>
+<li data-cid="OV0cHa">Goyal, Y., Khot, T., Summers-Stay, D., Batra, D., &amp; Parikh, D. (2017). Making the V in VQA matter: Elevating the role of image understanding in Visual Question Answering. In *Proceedings of the IEEE conference on computer vision and pattern recognition* (pp. 6904-6913).</li>
+</ul>
+</section>
+</div>
+</body></html>
